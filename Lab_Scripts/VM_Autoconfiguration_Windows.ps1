@@ -33,10 +33,13 @@ $ip = "$lastCharMacInt$vmtype"
 $ip = [convert]::ToInt32($ip, 10)
 
 [array]$staticip = "10.42.42.$ip"
-[array]$gateway ="10.42.42.1"
-[array]$subnet = "255.255.255.0"
+[array]$gateway ="10.42.42.254"
+[array]$subnet ="255.255.255.0"
+[array]$dns = "192.168.178.1","8.8.8.8"
 
 $ipconfiguration.EnableStatic($staticip, $subnet)
+$ipconfiguration.setGateways($gateway, 1)
+$ipconfiguration.SetDNSServerSearchOrder($dns)
 Write-Output "Die neue IP-Adresse lautet: $staticip"
 }
 

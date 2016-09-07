@@ -8,9 +8,9 @@ $TN_VM = $VMAnzahl - 3
 
 Write-Output "Es werden nun $TN_VM VMs neugestartet."
 
-Stop-VM kali.lab* -Force
-Stop-VM linux.lab* -Force
-Stop-VM windows.lab* -Force
+Stop-VM kali.lab* -TurnOff -Force
+Stop-VM linux.lab* -TurnOff -Force
+Stop-VM windows.lab* -TurnOff -Force
 
 Start-VM kali.lab* 
 Start-VM linux.lab*

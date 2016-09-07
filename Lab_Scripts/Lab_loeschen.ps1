@@ -9,13 +9,13 @@ $TN_VM = $VMAnzahl - 3
 Write-Output "Es werden nun $TN_VM VMs gelöscht."
 
 Write-Output "Kali VMs werden angehalten"
-Stop-VM kali.lab* -force -ErrorAction SilentlyContinue
+Stop-VM kali.lab* -TurnOff -force -ErrorAction SilentlyContinue
 
 Write-Output "Metasploitable VMs werden angehalten"
-Stop-VM linux.lab* -force -ErrorAction SilentlyContinue
+Stop-VM linux.lab* -TurnOff -force -ErrorAction SilentlyContinue
 
 Write-Output "Windows VMs werden angehalten"
-Stop-VM windows.lab* -force -ErrorAction SilentlyContinue
+Stop-VM windows.lab* -TurnOff -force -ErrorAction SilentlyContinue
 
 Write-Output "Kali VMs werden entfernt"
 Remove-VM kali.lab* -force -ErrorAction SilentlyContinue

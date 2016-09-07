@@ -8,9 +8,9 @@ $TN_VM = $VMAnzahl - 3
 
 Write-Output "Es werden nun $TN_VM VMs heruntergefahren."
 
-Stop-VM kali.lab* -Force
-Stop-VM linux.lab* -Force
-stop-VM windows.lab* -Force
+Stop-VM kali.lab* -TurnOff -Force
+Stop-VM linux.lab* -TurnOff -Force
+stop-VM windows.lab* -TurnOff -Force
 
 #Zurück zum Startmenü
 . $script_path\Start.ps1
