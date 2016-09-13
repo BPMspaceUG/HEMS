@@ -1,0 +1,14 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          local.autostart
+# Required-Start:    $start
+# Required-Stop:     $shutdown
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Kurze Beschreibung
+# Description:       Lange Bechreibung
+### END INIT INFO
+# Author: Name
+
+# Aktionen
+sudo sh /etc/init.d/vm-autoconfiguration.sh
