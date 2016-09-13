@@ -4,5 +4,6 @@ dec_two_digit="$(printf '%02d' "$mac_decimal")" # formatiert die DEZzahl aus mac
 vm_type=1 # VM Maschinentyp = 1 bei Kali und 2 bei Metasploitable
 static_ip="$mac_decimal""$vm_type"
 ifconfig eth0 10.42.42.$static_ip netmask 255.255.255.0 up
+route add default gw 10.42.42.254
 hostname "kali-lab""$dec_two_digit"
 
