@@ -20,3 +20,4 @@ route add default gw 10.42.42.254
 hostname "kali-lab""$dec_two_digit"
 echo "kali-lab""$dec_two_digit" > /etc/hostname
 echo -e "127.0.0.1  localhost\n127.0.1.1  kali-lab""$dec_two_digit" > /etc/hosts
+
