@@ -19,5 +19,5 @@ route add default gw 10.42.42.254
 #Changes the hostname in /etc/hosts and /etc/hostname
 hostname "kali-lab""$dec_two_digit"
 echo "kali-lab""$dec_two_digit" > /etc/hostname
-echo -e "127.0.0.1  localhost\n127.0.1.1  kali-lab""$dec_two_digit" > /etc/hosts
+echo "127.0.0.1  localhost"\n"127.0.1.1  kali-lab""$dec_two_digit" > /etc/hosts
 
