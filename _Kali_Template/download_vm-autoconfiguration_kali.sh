@@ -1,19 +1,5 @@
-$ping = Test-Connection 8.8.8.8 -Quiet
+# Download and update the vm-autoconfiguration file in /etc/init.d/vm-autoconfiguration.sh
 
-$source = "https://raw.githubusercontent.com/BPMspaceUG/HEMS/master/Lab_Scripts/VM_Autoconfiguration_Windows.ps1"
-$destination = "C:\vm-autoconfiguration.ps1"
+wget --output-document=/etc/init.d/vm-autoconfiguration.sh  https://raw.githubusercontent.com/BPMspaceUG/HEMS/master/_Kali_Template/vm-autoconfiguration_kali.sh
 
-foreach($p in $ping)
-    {if($p -eq $true)
-        {
-        Invoke-WebRequest $source -OutFile $destination
-
-        Write-Output "Update von VM-Autoconfiguration.ps1 erfolgreich durchgeführt."
-        }
-
-    else
-        {Write-Output "Update von VM-Autoconfiguration.ps1 fehlgeschlagen."}
-
-}
-
-. C:\vm-autoconfiguration.ps1
+sudo sh /etc/init.d/vm-autoconfiguration.sh

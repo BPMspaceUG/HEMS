@@ -11,5 +11,5 @@
 # Author: Name
 
 # Aktionen
-sudo sh /etc/init.d/download_vm-autoconfiguration.sh
+sh /etc/init.d/download_vm-autoconfiguration.sh
 
