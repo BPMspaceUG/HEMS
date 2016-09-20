@@ -25,7 +25,7 @@ sed -i '/netmask/d' /etc/network/interfaces
 sed -i '/gateway/d' /etc/network/interfaces
 # sets eth0 to static configuration
 echo "iface eth0 inet static" >> /etc/network/interfaces
-echo "address 10.42.42.$static_ip">> /etc/network/interfaces
+echo "address 10.42.$static_ip.1">> /etc/network/interfaces
 echo "netmask 255.255.255.0" >> /etc/network/interfaces
 echo "gateway 10.42.42.254" >> /etc/network/interfaces
 sleep 2
