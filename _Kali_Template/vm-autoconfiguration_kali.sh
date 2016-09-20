@@ -12,7 +12,7 @@ dec_two_digit="$(printf '%02d' "$mac_decimal")"
 # stores the VM machine type; 1 = Kali, 2 = Metasploitable
 vm_type=1 
 # sets the static ip address according to the MAC-Address
-static_ip="$mac_decimal" #"$vm_type"
+#static_ip="$mac_decimal""$vm_type"
 #ifconfig eth0 10.42.42.$static_ip netmask 255.255.255.0 up
 # sets the default gateway to create an internet connection via the hems_router
 #route add default gw 10.42.42.254
@@ -21,11 +21,13 @@ static_ip="$mac_decimal" #"$vm_type"
 sed -i '/inet dhcp/d' /etc/network/interfaces #deletes the line where eth0 is set to dhcp
 sed -i '/iface eth0 inet static/d' /etc/network/interfaces
 sed -i '/address/d' /etc/network/interfaces #deletes old entries for adress, network and gateway 
+sed -i '/broadcast/d' /etc/network/interfaces
 sed -i '/netmask/d' /etc/network/interfaces
 sed -i '/gateway/d' /etc/network/interfaces
 # sets eth0 to static configuration
 echo "iface eth0 inet static" >> /etc/network/interfaces
-echo "address 10.42.$static_ip.$vm_type">> /etc/network/interfaces
+echo "address 10.42.$mac_decimal.1">> /etc/network/interfaces
+echo "broadcast 10.42.42.254" >> /etc/network/interfaces
 echo "netmask 255.255.255.0" >> /etc/network/interfaces
 echo "gateway 10.42.42.254" >> /etc/network/interfaces
 sleep 2
