@@ -19,6 +19,7 @@ static_ip="$mac_decimal""$vm_type"
 
 #edits the file /etc/network/interfaces
 sed -i '/inet dhcp/d' /etc/network/interfaces #deletes the line where eth0 is set to dhcp
+sed -i '/iface eth0 inet static/d' /etc/network/interfaces
 sed -i '/address/d' /etc/network/interfaces #deletes old entries for adress, network and gateway 
 sed -i '/netmask/d' /etc/network/interfaces
 sed -i '/gateway/d' /etc/network/interfaces
