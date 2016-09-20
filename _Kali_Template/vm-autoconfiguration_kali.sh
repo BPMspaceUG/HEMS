@@ -24,8 +24,7 @@ echo "iface eth0 inet static" >> /etc/network/interfaces
 echo "address 10.42.42.$static_ip">> /etc/network/interfaces
 echo "netmask 255.255.255.0" >> /etc/network/interfaces
 echo "gateway 10.42.42.254" >> /etc/network/interfaces
-ifdown eth0
-ifup eth0
+sleep 2
 /etc/init.d/networking restart
 
 #Changes the hostname in /etc/hosts and /etc/hostname
