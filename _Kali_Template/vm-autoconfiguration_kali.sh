@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #stored as /etc/init.d/vm-autoconfiguration.sh
-#last modified: 20.09.2016 - 14:15
+#last modified: 22.09.16 - 12:10
 
 # gets the last two characters of the mac-address and stores it in the variable "mac"
 mac="`ip link show dev eth0 | grep -oE 'link/ether ([a-f0-9]{2}:){5}[a-f0-9]{2}' | cut -d' ' -f2 |tail -c3 `" 
