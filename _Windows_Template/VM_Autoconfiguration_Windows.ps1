@@ -19,48 +19,50 @@ $lastCharMacInt = "{0:00}" -f $lastCharMacInt
 
 
 #Änderung der IP-Adresskonfiguration
-$vmtype = "3" #IP Adressen von Windows VMS enden auf 3
-$ip = "$lastCharMacInt$vmtype"
+$vm_type = 3 #IP Adressen von Windows VMS enden auf 3
+$ip = "$lastCharMacInt"
 $ip = [convert]::ToInt32($ip, 10)
 Write-Output "IP-Adresse wird überprüft"
-if (Get-WmiObject Win32_NetworkadapterConfiguration | where {$_.IPAddress -eq "10.42.42.$ip"}){
-Write-Output "IP-Adresse ist 10.42.42.$ip. So soll es sein"
-}
+if (Get-WmiObject Win32_NetworkadapterConfiguration | where {$_.IPAddress -eq "10.42.$ip.$vm_type"})
+    {
+    Write-Output "IP-Adresse ist 10.42.$ip.$vm_type. So soll es sein"
+    }
 else {
-$ipconfiguration = Get-WmiObject Win32_NetworkadapterConfiguration | where {$_.Description -like "Microsoft Hyper-V Network Adapter #*"}
-$vmtype = "3" #IP Adressen von Windows VMS enden auf 3
-$ip = "$lastCharMacInt$vmtype"
-$ip = [convert]::ToInt32($ip, 10)
+    $ipconfiguration = Get-WmiObject Win32_NetworkadapterConfiguration | where {$_.Description -like "Microsoft Hyper-V Network Adapter #*"}
+    #$vm_type = "3" #IP Adressen von Windows VMS enden auf 3
+    #$ip = "$lastCharMacInt$vm_type"
+    #$ip = [convert]::ToInt32($ip, 10)
 
-[array]$staticip = "10.42.42.$ip"
-[array]$gateway ="10.42.42.254"
-[array]$subnet ="255.255.255.0"
-[array]$dns = "192.168.178.1","8.8.8.8"
+    [array]$staticip = "10.42.$ip.$vm_type"
+    [array]$gateway ="10.42.254.254"
+    [array]$subnet ="255.255.0.0"
+    [array]$dns = "192.168.178.1","8.8.8.8"
 
-$ipconfiguration.EnableStatic($staticip, $subnet)
-$ipconfiguration.setGateways($gateway, 1)
-$ipconfiguration.SetDNSServerSearchOrder($dns)
-Write-Output "Die neue IP-Adresse lautet: $staticip"
-}
+    $ipconfiguration.EnableStatic($staticip, $subnet)
+    $ipconfiguration.setGateways($gateway, 1)
+    $ipconfiguration.SetDNSServerSearchOrder($dns)
+    Write-Output "Die neue IP-Adresse lautet: $staticip"
+    }
 
 #Änderung des Hostnamens
 Write-Output "Hostname wird überprüft..."
-if (Get-WmiObject -Class Win32_ComputerSystem | where {$_.Name -like "windows-lab$lastCharMacInt"}) {
-    Write-Output "Hostname ist windows-lab$lastCharMacInt. So soll es sein" 
-}
+if (Get-WmiObject -Class Win32_ComputerSystem | where {$_.Name -like "windows-lab$lastCharMacInt"}) 
+    {
+        Write-Output "Hostname ist windows-lab$lastCharMacInt. So soll es sein" 
+    }
 else {
-Write-Output "Hostname wird geändert: windows-lab$lastCharMacInt"
-Rename-Computer -NewName "windows-lab$lastCharMacInt"
+    Write-Output "Hostname wird geändert: windows-lab$lastCharMacInt"
+    Rename-Computer -NewName "windows-lab$lastCharMacInt"
 
-Write-Output "Ein Neustart wird in 10 Sekunden durchgeführt"
+    Write-Output "Ein Neustart wird in 5 Sekunden durchgeführt"
 
-    foreach ($i in 10..1){
-    Write-Output "$i"
-    Start-Sleep -Seconds 1
-       }
+        foreach ($i in 5..1){
+        Write-Output "$i"
+        Start-Sleep -Seconds 1
+           }
 
-shutdown -r -t 0
-}
+    shutdown -r -t 0
+    }
 
 Write-Output "Hostname: windows-lab$lastCharMacInt"
-Write-Output "IP-Adresse: 10.42.42.$ip"
+Write-Output "IP-Adresse: 10.42.$ip.$vm_type"
