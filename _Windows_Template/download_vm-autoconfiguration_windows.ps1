@@ -1,6 +1,6 @@
 $ping = Test-Connection 8.8.8.8 -Quiet
 
-$source = "https://raw.githubusercontent.com/BPMspaceUG/HEMS/master/Lab_Scripts/VM_Autoconfiguration_Windows.ps1"
+$source = "https://raw.githubusercontent.com/BPMspaceUG/HEMS/master/_Windows_Template/VM_Autoconfiguration_Windows.ps1"
 $destination = "C:\vm-autoconfiguration.ps1"
 
 foreach($p in $ping)
