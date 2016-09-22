@@ -63,9 +63,10 @@ else
 	sudo chmod 777 /etc/hosts 
 	sudo chmod 777 /etc/hostname
 	echo "kali-lab""$dec_two_digit" > /etc/hostname
-	sed -i '/127.0.1.1/d' /etc/hosts
+	#sed -i '/127.0.1.1/d' /etc/hosts
 	sleep 1
-	echo "127.0.1.1  kali-lab""$dec_two_digit" >> /etc/hosts
+	#echo "127.0.1.1  kali-lab""$dec_two_digit" >> /etc/hosts
+	echo -e "127.0.0.1 localhost\n127.0.1.1 kali-lab$dec_two_digit" > /etc/hosts
 	sudo chmod 644 /etc/hosts
 	sudo chmod 644 /etc/hostname    
 	sleep 1
