@@ -29,9 +29,9 @@ if (Get-WmiObject Win32_NetworkadapterConfiguration | where {$_.IPAddress -eq "1
     }
 else {
     $ipconfiguration = Get-WmiObject Win32_NetworkadapterConfiguration | where {$_.Description -like "Microsoft Hyper-V Network Adapter #*"}
-    #$vm_type = "3" #IP Adressen von Windows VMS enden auf 3
-    #$ip = "$lastCharMacInt$vm_type"
-    #$ip = [convert]::ToInt32($ip, 10)
+    $vm_type = 3 #IP Adressen von Windows VMS enden auf 3
+    $ip = "$lastCharMacInt"
+    $ip = [convert]::ToInt32($ip, 10)
 
     [array]$staticip = "10.42.$ip.$vm_type"
     [array]$gateway ="10.42.254.254"
