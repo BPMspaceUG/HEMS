@@ -20,7 +20,7 @@ vm_type=1
 #edits the file /etc/network/interfaces
 current_ipaddress="`sed -n '12 p' /etc/network/interfaces | cut -d ' ' -f2`"
 estimated_ipaddress="10.42.$mac_decimal.1"
-if ["$current_ipaddress" = "$estimated_ipaddress"]
+if [ "$current_ipaddress" = "$estimated_ipaddress" ]
 sleep 15
 then
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
@@ -52,7 +52,7 @@ fi
 #Changes the hostname in /etc/hosts and /etc/hostname
 current_hostname="`hostname`"
 estimated_hostname="kali-lab$dec_two_digit"
-if ["$current_hostname" = "$estimated_hostname" ]
+if [ "$current_hostname" = "$estimated_hostname" ]
 sleep 15
 then
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
