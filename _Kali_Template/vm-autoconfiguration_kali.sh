@@ -38,8 +38,11 @@ then
 	sleep 1
 	sudo /etc/init.d/networking restart
 	sleep 1
+	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
+	echo "Ip Address successfully changed to $estimated_ipaddress">> /etc/init.d/vm-autoconfiguration_log.txt
 else 
-	echo "$current_ipaddress"
+	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
+	echo "$current_ipaddress" >> /etc/init.d/vm-autoconfiguration_log.txt
 
 fi
 
@@ -57,7 +60,10 @@ then
 	# restarts the ssh service with the new settings
 	service sshd restart
 
+	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
+	echo "hostname successfully changed to $estimated_hostname" >> /etc/init.d/vm-autoconfiguration_log.txt
 	sudo reboot -f
 else 
-	echo $current_hostname
+	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
+	echo "$current_hostname" >> /etc/init.d/vm-autoconfiguration_log.txt
 fi
