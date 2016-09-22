@@ -60,9 +60,14 @@ then
 else 
 
 	#hostname "kali-lab""$dec_two_digit"
-	sudo echo "kali-lab""$dec_two_digit" > /etc/hostname
+	sudo chmod 777 /etc/hosts 
+	sudo chmod 777 /etc/hostname
+	echo "kali-lab""$dec_two_digit" > /etc/hostname
 	sed -i '/127.0.1.1/d' /etc/hosts
-	sudo echo "127.0.1.1  kali-lab""$dec_two_digit" >> /etc/hosts    
+	sleep 1
+	echo "127.0.1.1  kali-lab""$dec_two_digit" >> /etc/hosts
+	sudo chmod 644 /etc/hosts
+	sudo chmod 644 /etc/hostname    
 	sleep 1
 	# restarts the ssh service with the new settings
 	service sshd restart
