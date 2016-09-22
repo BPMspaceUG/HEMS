@@ -14,7 +14,7 @@ vm_type=2
 #static_ip="$mac_decimal""$vm_type"
 
 #edits the file /etc/network/interfaces
-current_ipaddress="`sed -n '12 p' /etc/network/interfaces | cut -d ' ' -f2`"
+current_ipaddress="`sed -n '13 p' /etc/network/interfaces | cut -d ' ' -f2`"
 estimated_ipaddress="10.42.$mac_decimal.$vm_type"
 if [ "$current_ipaddress" = "$estimated_ipaddress" ]
 

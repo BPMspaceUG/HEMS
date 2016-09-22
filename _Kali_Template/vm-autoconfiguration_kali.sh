@@ -18,7 +18,7 @@ vm_type=1
 #route add default gw 10.42.42.254
 
 #edits the file /etc/network/interfaces
-current_ipaddress="`sed -n '12 p' /etc/network/interfaces | cut -d ' ' -f2`"
+current_ipaddress="`sed -n '13 p' /etc/network/interfaces | cut -d ' ' -f2`"
 estimated_ipaddress="10.42.$mac_decimal.$vm_type"
 if [ "$current_ipaddress" = "$estimated_ipaddress" ]
 
