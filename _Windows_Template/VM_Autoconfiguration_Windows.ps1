@@ -1,6 +1,6 @@
-﻿Write-Output "Die automatische VM - Konfiguration wird in 10 Sekunden ausgeführt"
+﻿Write-Output "Die automatische VM - Konfiguration wird in 5 Sekunden ausgeführt"
 
-    foreach ($i in 10..1){
+    foreach ($i in 5..1){
     Write-Output "$i"
     Start-Sleep -Seconds 1
        }
