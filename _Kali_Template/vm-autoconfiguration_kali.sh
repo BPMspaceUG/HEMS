@@ -19,7 +19,7 @@ vm_type=1
 
 #edits the file /etc/network/interfaces
 current_ipaddress="`sed -n '12 p' /etc/network/interfaces | cut -d ' ' -f2`"
-estimated_ipaddress="10.42.$mac_decimal.1"
+estimated_ipaddress="10.42.$mac_decimal.$vm_type"
 if [ "$current_ipaddress" = "$estimated_ipaddress" ]
 
 then
@@ -35,8 +35,8 @@ else
 	sed -i '/gateway/d' /etc/network/interfaces
 	# sets the new static  ip configuration for eth0
 	echo "iface eth0 inet static" >> /etc/network/interfaces
-	echo "address 10.42.$mac_decimal.1">> /etc/network/interfaces
-	#echo "broadcast 10.42.254.254" >> /etc/network/interfaces
+	echo "address 10.42.$mac_decimal.$vm_type">> /etc/network/interfaces
+	echo "broadcast 10.42.255.255" >> /etc/network/interfaces
 	echo "netmask 255.255.0.0" >> /etc/network/interfaces
 	echo "gateway 10.42.254.254" >> /etc/network/interfaces
 
