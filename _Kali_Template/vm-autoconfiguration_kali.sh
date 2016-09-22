@@ -39,8 +39,10 @@ else
 	#echo "broadcast 10.42.254.254" >> /etc/network/interfaces
 	echo "netmask 255.255.0.0" >> /etc/network/interfaces
 	echo "gateway 10.42.254.254" >> /etc/network/interfaces
+
 	sleep 1
 	sudo /etc/init.d/networking restart
+	sleep 1
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
 	echo "Ip Address successfully changed to $estimated_ipaddress">> /etc/init.d/vm-autoconfiguration_log.txt
 
@@ -62,16 +64,19 @@ else
 	sudo chmod 777 /etc/hostname
 	echo "kali-lab""$dec_two_digit" > /etc/hostname
 	#sed -i '/127.0.1.1/d' /etc/hosts
+	sleep 1
 	#echo "127.0.1.1  kali-lab""$dec_two_digit" >> /etc/hosts
-	echo "127.0.0.1 localhost"  > /etc/hosts
+	echo "127.0.0.1 localhost" > /etc/hosts
 	echo "127.0.1.1 kali-lab$dec_two_digit" >> /etc/hosts
 	sudo chmod 644 /etc/hosts
 	sudo chmod 644 /etc/hostname    
+	sleep 1
 	# restarts the ssh service with the new settings
 	service sshd restart
 
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
 	echo "hostname successfully changed to $estimated_hostname" >> /etc/init.d/vm-autoconfiguration_log.txt
-	echo "VM wird neugestartet"
+	echo "VM wird in 5 Sekunden neugestartet"
+	sleep 5
 	sudo reboot -f
 fi
