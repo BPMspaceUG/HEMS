@@ -20,8 +20,12 @@ vm_type=1
 #edits the file /etc/network/interfaces
 current_ipaddress="`sed -n '12 p' /etc/network/interfaces | cut -d ' ' -f2`"
 estimated_ipaddress="10.42.$mac_decimal.1"
-if [$current_ipaddress != "$estimated_ipaddress"]
+if ["$current_ipaddress" == "$estimated_ipaddress"]
 then
+	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
+	echo "$current_ipaddress" >> /etc/init.d/vm-autoconfiguration_log.txt
+	
+else 
 	sed -i '/inet dhcp/d' /etc/network/interfaces #deletes the line where eth0 is set to dhcp
 	sed -i '/iface eth0 inet static/d' /etc/network/interfaces
 	sed -i '/address/d' /etc/network/interfaces #deletes old entries for address, network and gateway 
@@ -40,9 +44,6 @@ then
 	sleep 1
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
 	echo "Ip Address successfully changed to $estimated_ipaddress">> /etc/init.d/vm-autoconfiguration_log.txt
-else 
-	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
-	echo "$current_ipaddress" >> /etc/init.d/vm-autoconfiguration_log.txt
 
 fi
 
@@ -50,8 +51,12 @@ fi
 #Changes the hostname in /etc/hosts and /etc/hostname
 current_hostname="`hostname`"
 estimated_hostname="kali-lab$dec_two_digit"
-if ["$current_hostname" != "$estimated_hostname" ]
+if ["$current_hostname" == "$estimated_hostname" ]
 then
+	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
+	echo "$current_hostname" >> /etc/init.d/vm-autoconfiguration_log.txt
+else 
+	
 	#hostname "kali-lab""$dec_two_digit"
 	echo "kali-lab""$dec_two_digit" > /etc/hostname
 	sed -i 2D /etc/hosts
@@ -63,7 +68,4 @@ then
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
 	echo "hostname successfully changed to $estimated_hostname" >> /etc/init.d/vm-autoconfiguration_log.txt
 	sudo reboot -f
-else 
-	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
-	echo "$current_hostname" >> /etc/init.d/vm-autoconfiguration_log.txt
 fi
