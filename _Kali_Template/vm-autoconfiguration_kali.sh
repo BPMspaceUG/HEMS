@@ -48,7 +48,7 @@ fi
 
 
 #Changes the hostname in /etc/hosts and /etc/hostname
-current_hostname="`cat /etc/hostname`"
+current_hostname="`hostname`"
 estimated_hostname="kali-lab$dec_two_digit"
 if ["$current_hostname" != "$estimated_hostname" ]
 then
