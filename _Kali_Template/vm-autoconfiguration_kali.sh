@@ -60,4 +60,4 @@ else
 	echo $current_hostname
 fi
 
-sudo reboot
+#sudo reboot
