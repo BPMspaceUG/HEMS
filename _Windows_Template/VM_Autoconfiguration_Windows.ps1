@@ -38,7 +38,7 @@ else {
     [array]$subnet ="255.255.0.0"
     [array]$dns = "192.168.178.1","8.8.8.8"
 
-    $ipconfiguration.EnableStatic($staticip, $subnet)
+    $ipconfiguration.EnableStatic($staticip),($subnet)
     $ipconfiguration.setGateways($gateway, 1)
     $ipconfiguration.SetDNSServerSearchOrder($dns)
     Write-Output "Die neue IP-Adresse lautet: $staticip"
