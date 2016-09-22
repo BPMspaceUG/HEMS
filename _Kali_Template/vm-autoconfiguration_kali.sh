@@ -21,6 +21,7 @@ vm_type=1
 current_ipaddress="`sed -n '12 p' /etc/network/interfaces | cut -d ' ' -f2`"
 estimated_ipaddress="10.42.$mac_decimal.1"
 if ["$current_ipaddress" = "$estimated_ipaddress"]
+sleep 5
 then
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
 	echo "$current_ipaddress" >> /etc/init.d/vm-autoconfiguration_log.txt
@@ -52,6 +53,7 @@ fi
 current_hostname="`hostname`"
 estimated_hostname="kali-lab$dec_two_digit"
 if ["$current_hostname" = "$estimated_hostname" ]
+sleep 5
 then
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
 	echo "$current_hostname" >> /etc/init.d/vm-autoconfiguration_log.txt
@@ -59,7 +61,7 @@ else
 
 	#hostname "kali-lab""$dec_two_digit"
 	sudo echo "kali-lab""$dec_two_digit" > /etc/hostname
-	sed -i 2D /etc/hosts
+	sed -i '/127.0.1.1/d' /etc/hosts
 	sudo echo "127.0.1.1  kali-lab""$dec_two_digit" >> /etc/hosts    
 	sleep 1
 	# restarts the ssh service with the new settings
