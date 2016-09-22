@@ -21,7 +21,7 @@ vm_type=1
 current_ipaddress="`sed -n '12 p' /etc/network/interfaces | cut -d ' ' -f2`"
 estimated_ipaddress="10.42.$mac_decimal.1"
 if ["$current_ipaddress" = "$estimated_ipaddress"]
-sleep 5
+sleep 15
 then
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
 	echo "$current_ipaddress" >> /etc/init.d/vm-autoconfiguration_log.txt
@@ -53,7 +53,7 @@ fi
 current_hostname="`hostname`"
 estimated_hostname="kali-lab$dec_two_digit"
 if ["$current_hostname" = "$estimated_hostname" ]
-sleep 5
+sleep 15
 then
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
 	echo "$current_hostname" >> /etc/init.d/vm-autoconfiguration_log.txt
