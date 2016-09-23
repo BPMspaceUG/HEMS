@@ -2,6 +2,7 @@
 
 #stored as /etc/init.d/vm-autoconfiguration.sh
 #Permisson to execute the script at startup can be found at /etc/sudoers
+#last modified: 23.09.16 - 13:50
 
 # gets the last two characters of the mac-address and stores it in the variable "tail_current_mac"
 tail_current_mac="`ip link show dev eth0 | grep -oE 'link/ether ([a-f0-9]{2}:){5}[a-f0-9]{2}' | cut -d' ' -f2 |tail -c3 `" 
@@ -80,7 +81,7 @@ else
 
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
 	echo "hostname successfully changed to $vm_hostname" >> /etc/init.d/vm-autoconfiguration_log.txt
-	echo "VM wird in 5 Sekunden neugestartet"
+	echo "VM restarts in 5 seconds"
 	sleep 5
 	sudo reboot -f
 fi
