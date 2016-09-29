@@ -1,185 +1,156 @@
-﻿# Defines external Parameters
+# Defines external Parameters
 param (
-[int]$TNAnzahl
+[int]$P_count
 )
 
 #Section for Module Imports
 
 
-# Allgemeine Parameter
+# Global Variables
 $drive = "D:"
-$templatepath = "$drive\VM-Templates\"
-$childpath = "$drive\Lab\Teilnehmer_"
-$vSwitchName = "Lab_Switch"
-$script_path = "C:\Lab_Scripts" # auf MITSM_HYPERV_04
+$template_location = "$drive\VM-Templates\"
+$trainer_location = "$drive\Lab\Trainer"
+$participant_location = "$drive\Lab\Teilnehmer_"
+$vSwitch = "Lab_Switch"
+$script_location = "C:\Lab_Scripts" # auf MITSM_HYPERV_04
+$mac_scope = "00155DB2"
+# Kali VM
+$kali_vm_type = "01"
+$Kali_MemMinBytes = 256MB
+$Kali_MemMaxBytes = 1042MB
+$Kali_MemStartupBytes = 256MB
+$Kali_VM_Cores = 2
+#Metasploitable VM
+$ms_vm_type = "02"
+$MS_MemMinBytes = 256MB
+$MS_MemMaxBytes = 512MB
+$MS_MemStartupBytes = 512MB
+$MS_VM_Cores = 2
+#Windows VM
+$win_vm_type = "03"
+$Win_MemMinBytes = 256MB
+$Win_MemMaxBytes = 1024MB
+$Win_MemStartupBytes = 1024MB
+$Win_VM_Cores = 2
 
-#Variablen für Kali Linux Template
 
-$Kali_BaseVHD = "Kali_Training\Kali_Training.vhdx"
-$Kali_MAC = "00155DB20A"
+#################Beginn of Script##############
 
+# Sets the rights to read-only
+. $script_location\TemplateVHD-Schreibschutz-setzen.ps1
 
-#Variablen für Metasploitable Template
+#Question for number of participants
 
-$MS_BaseVHD = "Metasploitable_Training\Metasploitable_Training.vhdx"
-$MS_MAC = "00155DB20B"
-
-#Variablen für Windows Template
-
-$Win_BaseVHD = "Windows_Training\Windows_Training.vhdx"
-$Win_MAC = "00155DB20C"
-
-# VM Parameter  - funktionieren noch nicht -> TODO
-$Cores = 4
-$StartupBytes = 512MB
-$MemoryMinBytes = 256MB
-$MemoryMaxBytes = 2048MB
-
-#################Start des Skriptes##############
-
-# Schreibschutz auf die Templates setzen, wenn noch nicht geschehen
-. $script_path\TemplateVHD-Schreibschutz-setzen.ps1
-
-#Abfrage der Teilnehmeranzahl
-
-if (!$Anzahl) {
-$Anzahl = [convert]::ToInt32((Read-Host "Wie viele Teilnehmer werden am Kurs teilnehmen?"), 10) 
+if (!$P_count) {
+$P_count = [convert]::ToInt32((Read-Host "Wie viele Teilnehmer werden am Kurs teilnehmen?"), 10) 
 }
-$VMAnzahl = $Anzahl * 3
-$Anzahl = "{0:00}" -f $Anzahl
+$VM_count = $P_count * 3
+$P_count = "{0:00}" -f $P_count
 
-Write-Output `n "Es werden $Anzahl Teilnehmer am Kurs teilnehmen." `n
-#$VMAnzahl = [convert]::ToInt32($Anzahl) * 3
-Write-Output "Es werden nun $VMAnzahl virtuelle Maschinen erstellt."
-#Write-Output "$HexAnzahl"
+Write-Output `n "$P_count attendees will participate." `n
+Write-Output "$VM_count VMs will now be generated ."
 
 Write-Output "------------------------------------------------------------" `n
 Start-Sleep -Seconds 3
 
-foreach ($i in 1..$Anzahl)
-   {
+$trainer_vm = Get-VM -name "*.trainer.net" -ErrorAction SilentlyContinue #Checks, if the trainer VMs exist already
+if ($trainer_vm)
+    {
+        Write-Output "Trainer VMs exist already. Do you want to restore them to the default configuration?"
+    }
+else 
+{
+            # Trainer Lab
+            $trainer_mac = "00"
+            $trainer_path = "$trainer_location"
+            
 
-   #Write-Output "$Anzahl"
-   
-    $i = [convert]::ToInt32($i, 10)
-    $i = "{0:00}" -f $i
+            # Kali Trainer VM
+            $Kali_VMName="kali.trainer.net"
+            $kali_template_path = "$template_location\_Kali_Template\_Kali_Template.vhdx"
+            $kali_trainer_vhd_path = "$trainer_location\$Kali_VMName\$Kali_VMName.VHDX" 
+            $Kali_MAC = "$mac_scope$kali_vm_type$trainer_mac"
 
-   #Write-Output "$i"
+            Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_trainer_vhd_path" -VM_Name $Kali_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $Kali_MemMaxBytes -MemMinBytes $Kali_MemMinBytes -MemStartupBytes $Kali_MemStartupBytes -VM_Cores $Kali_VM_Cores -VM_StaticMac $Kali_MAC 
 
-   $vm = get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Prüfen, ob VMs bereits existieren
+            # Metasploitable Trainer VM
+            $MS_VMName = "linux.trainer.net"
+            $ms_template_path = "$template_location\_Metasploitable_Template\_Metasploitable_Template.vhdx"
+            $ms_trainer_vhd_path = "$trainer_location\$MS_VMName\$MS_VMName.VHDX" 
+            $MS_MAC = "$mac_scope$ms_vm_type$trainer_mac"
+            
+            Create-DifferencingVM -TemplatePath "$ms_template_path" -VHDX_Path "$ms_trainer_vhd_path" -VM_Name $MS_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $MS_MemMaxBytes -MemMinBytes $MS_MemMinBytes -MemStartupBytes $MS_MemStartupBytes -VM_Cores $MS_VM_Cores -VM_StaticMac $MS_MAC 
+
+            # Windows Trainer VM
+            $Win_VMName = "windows.trainer.net"
+            $win_template_path = "$template_location\_Kali_Template\_Kali_Template.vhdx"
+            $win_trainer_vhd_path = "$trainer_location\$Kali_VMName\$Kali_VMName.VHDX" 
+            $Win_MAC = "$mac_scope$win_vm_typedows$trainer_mac"
+            
+            Create-DifferencingVM -TemplatePath "$win_template_path" -VHDX_Path "$win_trainer_vhd_path" -VM_Name $Win_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $Win_MemMaxBytes -MemMinBytes $Win_MemMinBytes -MemStartupBytes $Win_MemStartupBytes -VM_Cores $Win_VM_Cores -VM_StaticMac $Win_MAC 
+
+                     
+}    
+
+$vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some VMs exist already
     if ($vm){
-     Write-Output "Virtuelle Maschinen für Teilnehmer $i existieren bereits:" 
+     Write-Output "The following VMs exist already:" 
      Write-Output "kali.lab$i.net" "linux.lab$i.net" "windows.lab$i.net"
      Write-Output "$($vm.State)" `n 
-     #Write-Output "linux.lab$i.net" 
-     #Write-Output "windows.lab$i.net"
-     Write-Output "Es werden keine neuen VMS angelegt." `n
+     # TODO: Question, if these VMs schould rest or schould be deleted
+     Write-Output "Those VMs will stay for the moment." `n
     }
     else{
-   
- 
-        ############Anlegen der Kali VM
 
-        #Zusammensetzen des VM-Namens:
-        $Kali_VMName="kali.lab$i.net"
+        foreach ($i in 1..$P_count)
+           {
 
-        #Pfad zum neuen Teilnehmerordner
-        $VHDXfilename = "$childpath$i\$Kali_VMName\$Kali_VMName.VHDX"
- 
-        # Erstellen der neuen VHD   
-        New-VHD -ParentPath "$templatepath$Kali_BaseVHD" -Differencing -Path "$VHDXfilename"
- 
-        #Erstellen der neuen VM; Verbindung mit dem Switch herstellen
-        New-VM -VHDPath "$VHDXfilename" -Name "$Kali_VMName" -Path "$childpath$i" -SwitchName "$vSwitchName"
- 
-        # Konfigurieren der VM mit den oben genannten VM Parametern
-        Set-VM -Name "$Kali_VMName" -DynamicMemory -MemoryMaximumBytes 2GB -MemoryMinimumBytes 512MB -MemoryStartupBytes 1GB -ProcessorCount 4
+           
+            $i = [convert]::ToInt32($i, 10)
+            $i = "{0:00}" -f $i
 
+            $Hex_i = [convert]::ToInt32($i, 10)
+            $Hex_i = "{0:X2}" -f $Hex_i
+         
+          
+                #Create Kali VM Clones
+                $Kali_VMName="kali.lab$i.net"
+                $Kali_MAC = "$mac_scope$kali_vm_type$Hex_i"
+                $kali_template_path = "$template_location\Kali_Training\Kali_Training.vhdx"
+                $kali_participant_vhd_path = "$participant_location$i\$Kali_VMName\$Kali_VMName.VHDX"       
+                $participant_path = "$participant_location$i"
 
-        # Zuweisen der statischen MAC - Adresse
-        $Hex_i = [convert]::ToInt32($i, 10)
-        $Hex_i = "{0:X2}" -f $Hex_i
-        #Add-VMNetworkAdapter -VMName "$Kali_VMName" -StaticMacAddress "$Kali_MAC$Hex_i" -SwitchName $vSwitchName
-        get-vm -name "$Kali_VMName" | Get-VMNetworkAdapter | Set-VMNetworkAdapter -StaticMacAddress "$Kali_MAC$Hex_i"
+                Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $Kali_MemMaxBytes -MemMinBytes $Kali_MemMinBytes -MemStartupBytes $Kali_MemStartupBytes -VM_Cores $Kali_VM_Cores -VM_StaticMac $Kali_MAC 
 
-        #Aktivieren der Integrationsdienste
-        Enable-VMIntegrationService -VMName "$Kali_VMName" -Name "Guest Service Interface"
+                Write-Output "$Kali_VMName created"
+                Write-Output "MAC-Address: $Kali_MAC"
+                Start-VM "$Kali_VMName" 
 
-    
-        Write-Output "$Kali_VMName angelegt"
-        Write-Output "Die MAC-Adresse lautet: $Kali_MAC$Hex_i"
-        Start-VM "$Kali_VMName"   
-        
+                #Create Metasploitable VM Clones
+                $MS_VMName="linux.lab$i.net"
+                $MS_MAC = "$mac_scope$ms_vm_type$Hex_i"
+                $ms_template_path = "$template_location\_Metasploitable_Template\_Metasploitable_Template.vhdx"
+                $ms_participant_vhd_path = "$participant_location$i\$MS_VMName\$MS_VMName.VHDX"       
+                $participant_path = "$participant_location$i"
+                
+                Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $MS_MemMaxBytes -MemMinBytes $MS_MemMinBytes -MemStartupBytes $MS_MemStartupBytes -VM_Cores $MS_VM_Cores -VM_StaticMac $Kali_MAC 
 
+                Write-Output "$MS_VMName created"
+                Write-Output "MAC-Address: $MS_MAC"
+                Start-VM "$Kali_VMName" 
 
-        ############ Anlegen der Metasploitable VM
+                #Create Windows VM Clones
+                $MS_VMName="windows.lab$i.net"
+                $Win_MAC = "$mac_scope$win_vm_type$Hex_i"
+                $win_template_path = "$template_location\_Windows_Template\_Windows_Template.vhdx"
+                $win_participant_vhd_path = "$participant_location$i\$Win_VMName\$Win_VMName.VHDX"       
+                $participant_path = "$participant_location$i"
 
-        #Zusammensetzen des VM-Namens:
-        $MS_VMName="linux.lab$i.net"
-
-        #Pfad zum neuen Teilnehmerordner
-        $VHDXfilename = "$childpath$i\$MS_VMName\$MS_VMName.VHDX"
- 
-        # Erstellen der neuen VHD   
-        New-VHD -ParentPath "$templatepath$MS_BaseVHD" -Differencing -Path "$VHDXfilename"
- 
-        #Erstellen der neuen VM
-        New-VM -VHDPath "$VHDXfilename" -Name "$MS_VMName" -Path "$childpath$i" #-SwitchName "$vSwitchName"
- 
-        # Konfigurieren der VM mit den oben genannten VM Parametern
-        Set-VM -Name "$MS_VMName" -DynamicMemory -MemoryMaximumBytes 1GB -MemoryMinimumBytes 256MB -MemoryStartupBytes 512MB -ProcessorCount 4
-
-        # Hinzufügen des Netzwerkadapters mit statischer MAC - Adresse    
-        $Hex_i = [convert]::ToInt32($i, 10)
-        $Hex_i = "{0:X2}" -f $Hex_i
-        Add-VMNetworkAdapter -VMName "$MS_VMName" -IsLegacy $true -StaticMacAddress "$MS_MAC$Hex_i" -SwitchName $vSwitchName
-
-        #get-vm -name "$MS_VMName" | Get-VMNetworkAdapter | Set-VMNetworkAdapter -StaticMacAddress "$MS_MAC$Hex_i"
-
-        #Aktivieren der Integrationsdienste
-        Enable-VMIntegrationService -VMName "$MS_VMName" -Name "Guest Service Interface"
-    
-        Write-Output "$MS_VMName angelegt"
-        Write-Output "Die MAC-Adresse lautet: $MS_MAC$Hex_i"
-        Start-VM "$MS_VMName"
+                Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $Win_MemMaxBytes -MemMinBytes $Win_MemMinBytes -MemStartupBytes $Win_MemStartupBytes -VM_Cores $Win_VM_Cores -VM_StaticMac $Kali_MAC 
 
 
-
-
-
-
-        ############ Anlegen der Windows VM
-
-        #Zusammensetzen des VM-Namens:
-        $Win_VMName="windows.lab$i.net"
-
-        #Pfad zum neuen Teilnehmerordner
-        $VHDXfilename = "$childpath$i\$Win_VMName\$Win_VMName.VHDX"
-
-        # Erstellen der neuen VHD   
-        New-VHD -ParentPath "$templatepath$Win_BaseVHD" -Differencing -Path "$VHDXfilename"
- 
-        #Erstellen der neuen VM; Verbindung mit dem Switch herstellen
-        New-VM -VHDPath "$VHDXfilename" -Name "$Win_VMName" -Path "$childpath$i" -SwitchName "$vSwitchName"
- 
-        # Konfigurieren der VM mit den oben genannten VM Parametern
-        Set-VM -Name "$Win_VMName" -DynamicMemory -MemoryMaximumBytes 2GB -MemoryMinimumBytes 512MB -MemoryStartupBytes 1GB -ProcessorCount 4
-
-        # Zuweisen der statischen MAC - Adresse      
-        $Hex_i = [convert]::ToInt32($i, 10)
-        $Hex_i = "{0:X2}" -f $Hex_i
-        #Add-VMNetworkAdapter -VMName $Win_VMName -StaticMacAddress "$Win_MAC$Hex_i" -SwitchName $vSwitchName
-        get-vm -name "$Win_VMName" | Get-VMNetworkAdapter | Set-VMNetworkAdapter -StaticMacAddress "$Win_MAC$Hex_i"
-
-        #Aktivieren der Integrationsdienste
-        Enable-VMIntegrationService -VMName "$Win_VMName" -Name "Guest Service Interface" 
-    
-        Write-Output "$Win_VMName angelegt"
-        Write-Output "Die MAC-Adresse lautet: $Win_MAC$Hex_i"
-        Start-VM "$Win_VMName"
-
-        Write-Output "Es wurden nun $VMAnzahl virtuelle Maschinen erstellt"
-        }
+                Write-Output "$VM_count VMs have been created"
+                }
 
 }
 
@@ -187,5 +158,5 @@ Write-Output "------------------------------------------------------------" `n
 Start-Sleep -Seconds 5
 
 #Zurück zum Startmenü
-. $script_path\Start.ps1
+. $script_location\Start.ps1
 
