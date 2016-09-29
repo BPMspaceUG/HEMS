@@ -12,7 +12,7 @@ $template_location = "$drive\VM-Templates\"
 $trainer_location = "$drive\Lab\Trainer"
 $participant_location = "$drive\Lab\Teilnehmer_"
 $vSwitch = "Lab_Switch"
-$script_location = "C:\Lab_Scripts" # auf MITSM_HYPERV_04
+$script_location = "C:\Hems-Repository\Lab_Scripts" # auf MITSM_HYPERV_04
 $mac_scope = "00155DB2"
 # Kali VM
 $kali_vm_type = "01"
