@@ -1,6 +1,6 @@
-# Module Create_DifferencingVM
+# Module Create-DifferencingVM
 
-Function Create_DifferencingVM
+Function Create-DifferencingVM
 {
 
 param
