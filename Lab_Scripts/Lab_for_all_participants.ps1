@@ -36,15 +36,19 @@ $Win_VM_Cores = 2
 
 #################Beginn of Script##############
 
+#Shutdown Template VMs
+get-vm -name "*_Template" | stop-vm -force -ErrorAction SilentlyContinue
+
 # Sets the rights to read-only
 Set-ItemProperty -Path "$template_location\_Kali_Template\_Kali_Template.vhdx" -Name IsReadOnly -Value $true
 Set-ItemProperty -Path "$template_location\_Metasploitable_Template\_Metasploitable_Template.vhdx" -Name IsReadOnly -Value $true
 Set-ItemProperty -Path "$template_location\_Windows_Template\_Windows_Template.vhdx" -Name IsReadOnly -Value $true
 
+
 #Question for number of participants
 
 if (!$P_count) {
-$P_count = [convert]::ToInt32((Read-Host "Wie viele Teilnehmer werden am Kurs teilnehmen?"), 10) 
+$P_count = [convert]::ToInt32((Read-Host "How many participants has this course?"), 10)
 }
 $VM_count = $P_count * 3
 $P_count = "{0:00}" -f $P_count
