@@ -16,7 +16,7 @@ dec_two_digit="$(printf '%02d' "$tail_current_mac_dec")"
 # Definition of all necessary parameters
 vm_type=2 #VM Types: Kali = 1, Metasploitable Linux = 2, Windows = 3
 orga=42
-static_ip="10.$orga.$dec_two_digit.$vm_type"
+static_ip="10.$orga.$tail_current_mac_dec.$vm_type"
 broadcast="10.$orga.255.255"
 netmask="255.255.0.0"
 gateway="10.$orga.254.254"
