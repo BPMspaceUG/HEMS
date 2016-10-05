@@ -1,26 +1,29 @@
 # Module Create_differencing_VM
+
 Function Create_differencing_VM
 {
-        
-param (
-$TemplatePath
-$VHDX_Path
-$VM_Name
-$VM_Path
-$VM_Switch
-$MemMaxBytes
-$MemMinBytes
-$MemStartupBytes
-$VM_Cores
+
+param
+(
+$TemplatePath,
+$VHDX_Path,
+$VM_Name,
+$VM_Path,
+$VM_Switch,
+$MemMaxBytes,
+$MemMinBytes,
+$MemStartupBytes,
+$VM_Cores,
 $VM_StaticMac
-)
+)      
+
 
 
         Function Main {       
         # Create new differencing VHDX 
         New-VHD -ParentPath "$TemplatePath" -Differencing -Path "$VHDX_Path"
          
-        ´# Create new VM and assign the new VHDX and a Virtual Switch
+        # Create new VM and assign the new VHDX and a Virtual Switch
         New-VM -VHDPath "$VHDX_Path" -Name $VM_Name -Path "$VM_Path" -SwitchName $VM_Switch
          
         # Configure the new VM

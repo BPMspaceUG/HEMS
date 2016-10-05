@@ -3,9 +3,6 @@ param (
 [int]$P_count
 )
 
-#Section for Module Imports
-
-
 # Global Variables
 $drive = "D:"
 $template_location = "C:\VM-Templates\"
@@ -14,6 +11,10 @@ $participant_location = "$drive\Lab\Teilnehmer_"
 $vSwitch = "Lab_Switch"
 $script_location = "C:\Hems-Repository\Lab_Scripts" # auf MITSM_HYPERV_04
 $mac_scope = "00155DB2"
+
+#Section for Module Imports
+Import-Module Create-DifferencingVM
+
 # Kali VM
 $kali_vm_type = "01"
 $Kali_MemMinBytes = 256MB
