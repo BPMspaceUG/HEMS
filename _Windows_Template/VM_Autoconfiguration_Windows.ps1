@@ -10,7 +10,7 @@ Write-Output "The automatic VM Selfconfiguration starts in 5 seconds"
 
 # Fetches the last two Characters of the MAC - Address
 Write-Output "MAC-Adresse wird ausgelesen..."
-$Current_Mac = get-wmiobject win32_networkadapter | where {$_.Name -like “Microsoft Hyper-V Network Adapter #*”} | select MACAddress | format-wide | out-string
+$Current_Mac = get-wmiobject win32_networkadapter | where {$_.Name -like "Microsoft Hyper-V Network Adapter*"} | select MACAddress | format-wide | out-string
 Write-Output "Die MAC - Adresse lautet: $Current_Mac"
 $tail_current_Mac = $Current_Mac.remove(0,19).remove(2.0) # selects only the last two characters of the current MAC - Address
 #Let's do some type conversion
