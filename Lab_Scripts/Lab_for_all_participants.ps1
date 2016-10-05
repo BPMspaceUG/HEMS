@@ -8,7 +8,7 @@ param (
 
 # Global Variables
 $drive = "D:"
-$template_location = "$drive\VM-Templates\"
+$template_location = "C:\VM-Templates\"
 $trainer_location = "$drive\Lab\Trainer"
 $participant_location = "$drive\Lab\Teilnehmer_"
 $vSwitch = "Lab_Switch"
@@ -37,7 +37,9 @@ $Win_VM_Cores = 2
 #################Beginn of Script##############
 
 # Sets the rights to read-only
-. $script_location\TemplateVHD-Schreibschutz-setzen.ps1
+Set-ItemProperty -Path "$template_location\_Kali_Template\_Kali_Template.vhdx" -Name IsReadOnly -Value $true
+Set-ItemProperty -Path "$template_location\_Metasploitable_Template\_Metasploitable_Template.vhdx" -Name IsReadOnly -Value $true
+Set-ItemProperty -Path "$template_location\_Windows_Template\_Windows_Template.vhdx" -Name IsReadOnly -Value $true
 
 #Question for number of participants
 

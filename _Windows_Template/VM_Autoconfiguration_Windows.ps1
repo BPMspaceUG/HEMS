@@ -1,4 +1,4 @@
-﻿#stored as c:\vm_autoconfiguration.ps1
+#stored as c:\vm_autoconfiguration.ps1
 #last modified: 23.09.16 - 13:21
 
 Write-Output "The automatic VM Selfconfiguration starts in 5 seconds"
@@ -14,13 +14,13 @@ $Current_Mac = get-wmiobject win32_networkadapter | where {$_.Name -like “Micr
 Write-Output "Die MAC - Adresse lautet: $Current_Mac"
 $tail_current_Mac = $Current_Mac.remove(0,19).remove(2.0) # selects only the last two characters of the current MAC - Address
 #Let's do some type conversion
-$tail_current_Mac = [convert]::ToInt64($tail_current_Mac, 16)
+$tail_current_Mac = [convert]::ToInt64($tail_current_Mac, 16) # String is HEX Number
 $tail_current_Mac = "{0:X2}" -f $tail_current_Mac
-$tail_current_Mac_Dec = [convert]::ToInt32($tail_current_Mac, 16)
+$tail_current_Mac_Dec = [convert]::ToInt32($tail_current_Mac, 16) # convert HEX to Decimal
 $tail_current_Mac_Dec = "{0:00}" -f $tail_current_Mac_Dec
 
 $ip_sequential = "$tail_current_Mac_Dec"
-$ip_sequential = [convert]::ToInt32($ip_sequential, 10)
+$ip_sequential = [convert]::ToInt32($ip_sequential, 10) # formats the Decimnal number with a guiding zero
 
 
 
