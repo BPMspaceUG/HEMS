@@ -18,9 +18,6 @@ $VM_StaticMac
 )      
 
 
-
-        Function Main {       
-        
         Write-Output $TemplatePath, $VHDX_Path, $VM_Name, $VM_Path,$VM_Switch, $MemMaxBytes, $MemMinBytes, $MemStartupBytes, $VM_Cores, $VM_StaticMac
         Read-Host "Press Enter to continue..."
         
@@ -41,5 +38,4 @@ $VM_StaticMac
 
         
 
-        }
 }
