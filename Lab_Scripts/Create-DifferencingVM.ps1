@@ -1,8 +1,5 @@
 # Module Create-DifferencingVM
 
-Function Create-DifferencingVM
-{
-
 param
 (
 $TemplatePath,
@@ -37,5 +34,3 @@ $VM_StaticMac
         Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"
 
         
-
-}
