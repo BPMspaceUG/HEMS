@@ -20,8 +20,12 @@ $VM_StaticMac
 
 
         Function Main {       
+        
+        Write-Output $TemplatePath, $VHDX_Path, $VM_Name, $VM_Path,$VM_Switch, $MemMaxBytes, $MemMinBytes, $MemStartupBytes, $VM_Cores, $VM_StaticMac
+        Read-Host "Press Enter to continue..."
+        
         # Create new differencing VHDX 
-        New-VHD -ParentPath "$TemplatePath" -Differencing -Path "$VHDX_Path"
+        New-VHD -ParentPath $TemplatePath -Differencing -Path $VHDX_Path
          
         # Create new VM and assign the new VHDX and a Virtual Switch
         New-VM -VHDPath "$VHDX_Path" -Name $VM_Name -Path "$VM_Path" -SwitchName $VM_Switch
@@ -34,5 +38,8 @@ $VM_StaticMac
 
         #Enabling all Integration Services
         Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"
+
+        
+
         }
 }
