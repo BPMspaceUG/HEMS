@@ -13,7 +13,7 @@ $script_location = "C:\Hems-Repository\Lab_Scripts" # auf MITSM_HYPERV_04
 $mac_scope = "00155DB2"
 
 #Section for Module Imports
-#Import-Module Create-DifferencingVM
+Import-Module Create-DifferencingVM
 
 # Kali VM
 $kali_vm_type = "01"
@@ -60,22 +60,6 @@ Write-Output "$VM_count VMs will now be generated ."
 Write-Output "------------------------------------------------------------" `n
 Start-Sleep -Seconds 3
 
-Function Create-DifferencingVM {       
-        # Create new differencing VHDX 
-        New-VHD -ParentPath "$TemplatePath" -Differencing -Path "$VHDX_Path"
-         
-        # Create new VM and assign the new VHDX and a Virtual Switch
-        New-VM -VHDPath "$VHDX_Path" -Name $VM_Name -Path "$VM_Path" -SwitchName $VM_Switch
-         
-        # Configure the new VM
-        Set-VM -Name $VM_Name -DynamicMemory -MemoryMaximumBytes $MemMaxBytes -MemoryMinimumBytes $MemMinBytes -MemoryStartupBytes $MemStartupBytes -ProcessorCount $VM_Cores
-
-        # Assigns a new, but static Mac-Address to the Virtual NIC
-        Get-VM -Name $VM_Name | Get-VMNetworkAdapter | Set-VMNetworkAdapter -StaticMacAddress $VM_StaticMac
-
-        #Enabling all Integration Services
-        Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"
-        }
 
 $trainer_vm = Get-VM -name "*.trainer.net" -ErrorAction SilentlyContinue #Checks, if the trainer VMs exist already
 if ($trainer_vm)
