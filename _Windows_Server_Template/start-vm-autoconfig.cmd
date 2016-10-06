@@ -1,0 +1,1 @@
+powershell "C:\download_vm-autoconfiguration.ps1"
