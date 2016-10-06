@@ -13,7 +13,7 @@ $script_location = "C:\Hems-Repository\Lab_Scripts" # auf MITSM_HYPERV_04
 $mac_scope = "00155DB2"
 
 #Section for Module Imports
-Import-Module Create-DifferencingVM
+#Import-Module Create-DifferencingVM
 
 # Kali VM
 $kali_vm_type = "01"
@@ -79,7 +79,7 @@ else
             $kali_trainer_vhd_path = "$trainer_location\$Kali_VMName\$Kali_VMName.VHDX" 
             $Kali_MAC = "$mac_scope$kali_vm_type$trainer_mac"
 
-            Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_trainer_vhd_path" -VM_Name $Kali_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $Kali_MemMaxBytes -MemMinBytes $Kali_MemMinBytes -MemStartupBytes $Kali_MemStartupBytes -VM_Cores $Kali_VM_Cores -VM_StaticMac $Kali_MAC 
+            . .\Create-DifferencingVM.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_trainer_vhd_path" -VM_Name $Kali_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $Kali_MemMaxBytes -MemMinBytes $Kali_MemMinBytes -MemStartupBytes $Kali_MemStartupBytes -VM_Cores $Kali_VM_Cores -VM_StaticMac $Kali_MAC 
 
             # Metasploitable Trainer VM
             $MS_VMName = "linux.trainer.net"
@@ -87,7 +87,7 @@ else
             $ms_trainer_vhd_path = "$trainer_location\$MS_VMName\$MS_VMName.VHDX" 
             $MS_MAC = "$mac_scope$ms_vm_type$trainer_mac"
             
-            Create-DifferencingVM -TemplatePath "$ms_template_path" -VHDX_Path "$ms_trainer_vhd_path" -VM_Name $MS_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $MS_MemMaxBytes -MemMinBytes $MS_MemMinBytes -MemStartupBytes $MS_MemStartupBytes -VM_Cores $MS_VM_Cores -VM_StaticMac $MS_MAC 
+            . .\Create-DifferencingVM.ps1 -TemplatePath "$ms_template_path" -VHDX_Path "$ms_trainer_vhd_path" -VM_Name $MS_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $MS_MemMaxBytes -MemMinBytes $MS_MemMinBytes -MemStartupBytes $MS_MemStartupBytes -VM_Cores $MS_VM_Cores -VM_StaticMac $MS_MAC 
 
             # Windows Trainer VM
             $Win_VMName = "windows.trainer.net"
@@ -95,7 +95,7 @@ else
             $win_trainer_vhd_path = "$trainer_location\$Kali_VMName\$Kali_VMName.VHDX" 
             $Win_MAC = "$mac_scope$win_vm_typedows$trainer_mac"
             
-            Create-DifferencingVM -TemplatePath "$win_template_path" -VHDX_Path "$win_trainer_vhd_path" -VM_Name $Win_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $Win_MemMaxBytes -MemMinBytes $Win_MemMinBytes -MemStartupBytes $Win_MemStartupBytes -VM_Cores $Win_VM_Cores -VM_StaticMac $Win_MAC 
+            . .\Create-DifferencingVM.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_trainer_vhd_path" -VM_Name $Win_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $Win_MemMaxBytes -MemMinBytes $Win_MemMinBytes -MemStartupBytes $Win_MemStartupBytes -VM_Cores $Win_VM_Cores -VM_StaticMac $Win_MAC 
 
                      
 }    
@@ -128,7 +128,7 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
                 $kali_participant_vhd_path = "$participant_location$i\$Kali_VMName\$Kali_VMName.VHDX"       
                 $participant_path = "$participant_location$i"
 
-                Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $Kali_MemMaxBytes -MemMinBytes $Kali_MemMinBytes -MemStartupBytes $Kali_MemStartupBytes -VM_Cores $Kali_VM_Cores -VM_StaticMac $Kali_MAC 
+                . .\Create-DifferencingVM.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $Kali_MemMaxBytes -MemMinBytes $Kali_MemMinBytes -MemStartupBytes $Kali_MemStartupBytes -VM_Cores $Kali_VM_Cores -VM_StaticMac $Kali_MAC 
 
                 Write-Output "$Kali_VMName created"
                 Write-Output "MAC-Address: $Kali_MAC"
@@ -141,7 +141,7 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
                 $ms_participant_vhd_path = "$participant_location$i\$MS_VMName\$MS_VMName.VHDX"       
                 $participant_path = "$participant_location$i"
                 
-                Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $MS_MemMaxBytes -MemMinBytes $MS_MemMinBytes -MemStartupBytes $MS_MemStartupBytes -VM_Cores $MS_VM_Cores -VM_StaticMac $Kali_MAC 
+                . .\Create-DifferencingVM.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $MS_MemMaxBytes -MemMinBytes $MS_MemMinBytes -MemStartupBytes $MS_MemStartupBytes -VM_Cores $MS_VM_Cores -VM_StaticMac $Kali_MAC 
 
                 Write-Output "$MS_VMName created"
                 Write-Output "MAC-Address: $MS_MAC"
@@ -154,7 +154,7 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
                 $win_participant_vhd_path = "$participant_location$i\$Win_VMName\$Win_VMName.VHDX"       
                 $participant_path = "$participant_location$i"
 
-                Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $Win_MemMaxBytes -MemMinBytes $Win_MemMinBytes -MemStartupBytes $Win_MemStartupBytes -VM_Cores $Win_VM_Cores -VM_StaticMac $Kali_MAC 
+                . .\Create-DifferencingVM.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $Win_MemMaxBytes -MemMinBytes $Win_MemMinBytes -MemStartupBytes $Win_MemStartupBytes -VM_Cores $Win_VM_Cores -VM_StaticMac $Kali_MAC 
 
 
                 Write-Output "$VM_count VMs have been created"
