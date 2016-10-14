@@ -17,27 +17,20 @@ $mac_scope = "00155DB2"
 
 # Kali VM
 $kali_vm_type = "01"
-#$Kali_MemMinBytes = 256MB
-#$Kali_MemMaxBytes = 1042MB
-#$Kali_MemStartupBytes = 256MB
-#$Kali_VM_Cores = 2
+$kali_template_path = "$template_location\_Kali_Template\_Kali_Template.vhdx"
+
 
 #Metasploitable VM
 $ms_vm_type = "02"
-#$MS_MemMinBytes = 256MB
-#$MS_MemMaxBytes = 512MB
-#$MS_MemStartupBytes = 512MB
-#$MS_VM_Cores = 2
+$ms_template_path = "$template_location\_Metasploitable_Template\_Metasploitable_Template.vhdx"
 
 #Windows VM
 $win_vm_type = "03"
-#$Win_MemMinBytes = 256MB
-#$Win_MemMaxBytes = 1024MB
-#$Win_MemStartupBytes = 1024MB
-#$Win_VM_Cores = 2
+$win_template_path = "$template_location\_Windows_Template\_Windows_Template.vhdx"
 
 #Windows Server VM
 $winserv_vm_type = "04"
+$winserv_template_path = "$template_location\_Windows_Server_Template\_Windows_Server_Template.vhdx"
 
 
 #################Beginn of Script##############
@@ -81,7 +74,6 @@ else
 
             # Kali Trainer VM
             $Kali_VMName="kali.trainer.net"
-            $kali_template_path = "$template_location\_Kali_Template\_Kali_Template.vhdx"
             $kali_trainer_vhd_path = "$trainer_location\$Kali_VMName\$Kali_VMName.VHDX" 
             $Kali_MAC = "$mac_scope$kali_vm_type$trainer_mac"
 
@@ -89,7 +81,6 @@ else
 
             # Metasploitable Trainer VM
             $MS_VMName = "linux.trainer.net"
-            $ms_template_path = "$template_location\_Metasploitable_Template\_Metasploitable_Template.vhdx"
             $ms_trainer_vhd_path = "$trainer_location\$MS_VMName\$MS_VMName.VHDX" 
             $MS_MAC = "$mac_scope$ms_vm_type$trainer_mac"
             
@@ -97,17 +88,15 @@ else
 
             # Windows Trainer VM
             $Win_VMName = "windows.trainer.net"
-            $win_template_path = "$template_location\_Windows_Template\_Windows_Template.vhdx"
             $win_trainer_vhd_path = "$trainer_location\$Win_VMName\$Win_VMName.VHDX" 
-            $Win_MAC = "$mac_scope$win_vm_typedows$trainer_mac"
+            $Win_MAC = "$mac_scope$win_vm_type$trainer_mac"
             
             . .\Create-DifferencingVM_Win.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_trainer_vhd_path" -VM_Name $Win_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
 
             # Windows Server VM
-            $Winserv_VMName = "server2012.trainer.net"
-            $winserv_template_path = "$template_location\_Windows_Server_Template\_Windows_Server_Template.vhdx"
+            $Winserv_VMName = "server2012.lab00.net"
             $winserv_trainer_vhd_path = "$trainer_location\$winserv_VMName\$winserv_VMName.VHDX" 
-            $Winserv_MAC = "$mac_scope$win_vm_typedows$trainer_mac"
+            $Winserv_MAC = "$mac_scope$winserv_vm_type$trainer_mac"
             
             . .\Create-DifferencingVM_WinServer.ps1 -TemplatePath "$winserv_template_path" -VHDX_Path "$winserv_trainer_vhd_path" -VM_Name $Winserv_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Winserv_MAC 
 
@@ -138,7 +127,6 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
                 #Create Kali VM Clones
                 $Kali_VMName="kali.lab$i.net"
                 $Kali_MAC = "$mac_scope$kali_vm_type$Hex_i"
-                $kali_template_path = "$template_location\Kali_Training\Kali_Training.vhdx"
                 $kali_participant_vhd_path = "$participant_location$i\$Kali_VMName\$Kali_VMName.VHDX"       
                 $participant_path = "$participant_location$i"
 
@@ -151,11 +139,10 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
                 #Create Metasploitable VM Clones
                 $MS_VMName="linux.lab$i.net"
                 $MS_MAC = "$mac_scope$ms_vm_type$Hex_i"
-                $ms_template_path = "$template_location\_Metasploitable_Template\_Metasploitable_Template.vhdx"
                 $ms_participant_vhd_path = "$participant_location$i\$MS_VMName\$MS_VMName.VHDX"       
                 $participant_path = "$participant_location$i"
                 
-                . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$ms_template_path" -VHDX_Path "$ms_participant_vhd_path" -VM_Name $MS_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
+                . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$ms_template_path" -VHDX_Path "$ms_participant_vhd_path" -VM_Name $MS_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $MS_MAC 
 
                 Write-Output "$MS_VMName created"
                 Write-Output "MAC-Address: $MS_MAC"
@@ -164,11 +151,10 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
                 #Create Windows VM Clones
                 $Win_VMName="windows.lab$i.net"
                 $Win_MAC = "$mac_scope$win_vm_type$Hex_i"
-                $win_template_path = "$template_location\_Windows_Template\_Windows_Template.vhdx"
                 $win_participant_vhd_path = "$participant_location$i\$Win_VMName\$Win_VMName.VHDX"       
                 $participant_path = "$participant_location$i"
 
-                . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_participant_vhd_path" -VM_Name $Win_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
+                . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_participant_vhd_path" -VM_Name $Win_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
 
 
                 Write-Output "$VM_count VMs have been created"
