@@ -104,12 +104,12 @@ else
             . .\Create-DifferencingVM_Win.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_trainer_vhd_path" -VM_Name $Win_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
 
             # Windows Server VM
-            $Winerv_VMName = "server2012.trainer.net"
-            $winserv_template_path = "$template_location\_Kali_Template\_Kali_Template.vhdx"
-            $winserv_trainer_vhd_path = "$trainer_location\$Kali_VMName\$Kali_VMName.VHDX" 
+            $Winserv_VMName = "server2012.trainer.net"
+            $winserv_template_path = "$template_location\_Windows_Server_Template\_Windows_Server_Template.vhdx"
+            $winserv_trainer_vhd_path = "$trainer_location\$winserv_VMName\$winserv_VMName.VHDX" 
             $Winserv_MAC = "$mac_scope$win_vm_typedows$trainer_mac"
             
-            . .\Create-DifferencingVM_Win.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_trainer_vhd_path" -VM_Name $Win_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
+            . .\Create-DifferencingVM_WinServer.ps1 -TemplatePath "$winserv_template_path" -VHDX_Path "$winserv_trainer_vhd_path" -VM_Name $Winserv_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Winserv_MAC 
 
                      
 }    
@@ -142,7 +142,7 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
                 $kali_participant_vhd_path = "$participant_location$i\$Kali_VMName\$Kali_VMName.VHDX"       
                 $participant_path = "$participant_location$i"
 
-                Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $Kali_MemMaxBytes -MemMinBytes $Kali_MemMinBytes -MemStartupBytes $Kali_MemStartupBytes -VM_Cores $Kali_VM_Cores -VM_StaticMac $Kali_MAC 
+                . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
 
                 Write-Output "$Kali_VMName created"
                 Write-Output "MAC-Address: $Kali_MAC"
@@ -155,20 +155,20 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
                 $ms_participant_vhd_path = "$participant_location$i\$MS_VMName\$MS_VMName.VHDX"       
                 $participant_path = "$participant_location$i"
                 
-                Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $MS_MemMaxBytes -MemMinBytes $MS_MemMinBytes -MemStartupBytes $MS_MemStartupBytes -VM_Cores $MS_VM_Cores -VM_StaticMac $Kali_MAC 
+                . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$ms_template_path" -VHDX_Path "$ms_participant_vhd_path" -VM_Name $MS_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
 
                 Write-Output "$MS_VMName created"
                 Write-Output "MAC-Address: $MS_MAC"
                 Start-VM "$Kali_VMName" 
 
                 #Create Windows VM Clones
-                $MS_VMName="windows.lab$i.net"
+                $Win_VMName="windows.lab$i.net"
                 $Win_MAC = "$mac_scope$win_vm_type$Hex_i"
                 $win_template_path = "$template_location\_Windows_Template\_Windows_Template.vhdx"
                 $win_participant_vhd_path = "$participant_location$i\$Win_VMName\$Win_VMName.VHDX"       
                 $participant_path = "$participant_location$i"
 
-                Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -MemMaxBytes $Win_MemMaxBytes -MemMinBytes $Win_MemMinBytes -MemStartupBytes $Win_MemStartupBytes -VM_Cores $Win_VM_Cores -VM_StaticMac $Kali_MAC 
+                . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_participant_vhd_path" -VM_Name $Win_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
 
 
                 Write-Output "$VM_count VMs have been created"
@@ -179,6 +179,6 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
 Write-Output "------------------------------------------------------------" `n
 Start-Sleep -Seconds 5
 
-#Zurück zum Startmenü
-. $script_location\Start.ps1
+#Back to Startmenu
+. \Start.ps1
 
