@@ -6,7 +6,8 @@ $destination = "C:\vm-autoconfiguration.ps1"
 foreach($p in $ping)
     {if($p -eq $true)
         {
-        Invoke-WebRequest $source -OutFile $destination
+        Invoke-WebRequest -Uri $source -OutFile $destination
+        $WebClient.DownloadFile($source,$destination)
 
         Write-Output "Update von VM-Autoconfiguration.ps1 erfolgreich durchgeführt."
         }

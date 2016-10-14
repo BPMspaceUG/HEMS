@@ -85,7 +85,7 @@ else
             $kali_trainer_vhd_path = "$trainer_location\$Kali_VMName\$Kali_VMName.VHDX" 
             $Kali_MAC = "$mac_scope$kali_vm_type$trainer_mac"
 
-            Create-DifferencingVM -TemplatePath "$kali_template_path" -VHDX_Path "$kali_trainer_vhd_path" -VM_Name $Kali_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $Kali_MemMaxBytes -MemMinBytes $Kali_MemMinBytes -MemStartupBytes $Kali_MemStartupBytes -VM_Cores $Kali_VM_Cores -VM_StaticMac $Kali_MAC 
+            . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_trainer_vhd_path" -VM_Name $Kali_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
 
             # Metasploitable Trainer VM
             $MS_VMName = "linux.trainer.net"
@@ -93,15 +93,23 @@ else
             $ms_trainer_vhd_path = "$trainer_location\$MS_VMName\$MS_VMName.VHDX" 
             $MS_MAC = "$mac_scope$ms_vm_type$trainer_mac"
             
-            Create-DifferencingVM -TemplatePath "$ms_template_path" -VHDX_Path "$ms_trainer_vhd_path" -VM_Name $MS_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $MS_MemMaxBytes -MemMinBytes $MS_MemMinBytes -MemStartupBytes $MS_MemStartupBytes -VM_Cores $MS_VM_Cores -VM_StaticMac $MS_MAC 
+            . .\Create-DifferencingVM_MS.ps1 -TemplatePath "$ms_template_path" -VHDX_Path "$ms_trainer_vhd_path" -VM_Name $MS_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $MS_MAC 
 
             # Windows Trainer VM
             $Win_VMName = "windows.trainer.net"
-            $win_template_path = "$template_location\_Kali_Template\_Kali_Template.vhdx"
-            $win_trainer_vhd_path = "$trainer_location\$Kali_VMName\$Kali_VMName.VHDX" 
+            $win_template_path = "$template_location\_Windows_Template\_Windows_Template.vhdx"
+            $win_trainer_vhd_path = "$trainer_location\$Win_VMName\$Win_VMName.VHDX" 
             $Win_MAC = "$mac_scope$win_vm_typedows$trainer_mac"
             
-            Create-DifferencingVM -TemplatePath "$win_template_path" -VHDX_Path "$win_trainer_vhd_path" -VM_Name $Win_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -MemMaxBytes $Win_MemMaxBytes -MemMinBytes $Win_MemMinBytes -MemStartupBytes $Win_MemStartupBytes -VM_Cores $Win_VM_Cores -VM_StaticMac $Win_MAC 
+            . .\Create-DifferencingVM_Win.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_trainer_vhd_path" -VM_Name $Win_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
+
+            # Windows Server VM
+            $Winerv_VMName = "server2012.trainer.net"
+            $winserv_template_path = "$template_location\_Kali_Template\_Kali_Template.vhdx"
+            $winserv_trainer_vhd_path = "$trainer_location\$Kali_VMName\$Kali_VMName.VHDX" 
+            $Winserv_MAC = "$mac_scope$win_vm_typedows$trainer_mac"
+            
+            . .\Create-DifferencingVM_Win.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_trainer_vhd_path" -VM_Name $Win_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
 
                      
 }    
