@@ -18,7 +18,7 @@ $VM_Cores = 2
 
 
         Write-Output $TemplatePath, $VHDX_Path, $VM_Name, $VM_Path,$VM_Switch, $MemMaxBytes, $MemMinBytes, $MemStartupBytes, $VM_Cores, $VM_StaticMac
-        Read-Host "Press Enter to continue..."
+        #Read-Host "Press Enter to continue..."
         
         # Create new differencing VHDX 
         New-VHD -ParentPath $TemplatePath -Differencing -Path $VHDX_Path
