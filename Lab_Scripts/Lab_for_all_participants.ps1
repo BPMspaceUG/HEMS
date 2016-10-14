@@ -5,7 +5,7 @@ param (
 
 # Global Variables
 $drive = "D:"
-$template_location = "C:\VM-Templates\"
+$template_location = "C:\VM-Templates"
 $trainer_location = "$drive\Lab\Trainer"
 $participant_location = "$drive\Lab\Teilnehmer_"
 $vSwitch = "Lab_Switch"
@@ -94,7 +94,7 @@ else
             . .\Create-DifferencingVM_Win.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_trainer_vhd_path" -VM_Name $Win_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
 
             # Windows Server VM
-            $Winserv_VMName = "server2012.lab00.net"
+            $Winserv_VMName = "server2012.trainer.net"
             $winserv_trainer_vhd_path = "$trainer_location\$winserv_VMName\$winserv_VMName.VHDX" 
             $Winserv_MAC = "$mac_scope$winserv_vm_type$trainer_mac"
             
@@ -156,13 +156,12 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
 
                 . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_participant_vhd_path" -VM_Name $Win_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
 
-
-                Write-Output "$VM_count VMs have been created"
                 }
 
 }
 
 Write-Output "------------------------------------------------------------" `n
+Write-Output "$VM_count VMs have been created"
 Start-Sleep -Seconds 5
 
 #Back to Startmenu

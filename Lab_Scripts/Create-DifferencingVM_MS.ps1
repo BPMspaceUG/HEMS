@@ -28,13 +28,14 @@ $VM_Cores = 2
          
         # Configure the new VM
         Set-VM -Name $VM_Name -DynamicMemory -MemoryMaximumBytes $MemMaxBytes -MemoryMinimumBytes $MemMinBytes -MemoryStartupBytes $MemStartupBytes -ProcessorCount $VM_Cores
-
+        
+        # Assigns a new legacy network adapter and a static Mac-Address
         Add-VMNetworkAdapter -VMName "$VM_Name" -IsLegacy $true -StaticMacAddress "$VM_StaticMac" -SwitchName $VM_Switch
-
-        # Assigns a new, but static Mac-Address to the Virtual NIC
-        Get-VM -Name $VM_Name | Get-VMNetworkAdapter | Set-VMNetworkAdapter -StaticMacAddress 
-
+         
         #Enabling all Integration Services
         Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"
+
+        # starts the new VM Clone
+        Start-VM $VM_Name
 
         

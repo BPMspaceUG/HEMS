@@ -35,4 +35,5 @@ $VM_Cores = 2
         #Enabling all Integration Services
         Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"
 
-        
+        # starts the new VM Clone
+        Start-VM $VM_Name
