@@ -134,7 +134,6 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
 
                 Write-Output "$Kali_VMName created"
                 Write-Output "MAC-Address: $Kali_MAC"
-                Start-VM "$Kali_VMName" 
 
                 #Create Metasploitable VM Clones
                 $MS_VMName="linux.lab$i.net"
@@ -146,7 +145,6 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
 
                 Write-Output "$MS_VMName created"
                 Write-Output "MAC-Address: $MS_MAC"
-                Start-VM "$Kali_VMName" 
 
                 #Create Windows VM Clones
                 $Win_VMName="windows.lab$i.net"
