@@ -33,18 +33,33 @@ then
 	echo "$current_ipaddress" >> /etc/init.d/vm-autoconfiguration_log.txt
 	
 else 
-	sed -i '/inet dhcp/d' /etc/network/interfaces #deletes the line where eth0 is set to dhcp
-	sed -i '/iface eth0 inet static/d' /etc/network/interfaces
-	sed -i '/address/d' /etc/network/interfaces #deletes old entries for address, network and gateway 
-	sed -i '/broadcast/d' /etc/network/interfaces
-	sed -i '/netmask/d' /etc/network/interfaces
-	sed -i '/gateway/d' /etc/network/interfaces
+	#sed -i '/inet dhcp/d' /etc/network/interfaces #deletes the line where eth0 is set to dhcp
+	#sed -i '/iface eth0 inet static/d' /etc/network/interfaces
+	#sed -i '/address/d' /etc/network/interfaces #deletes old entries for address, network and gateway 
+	#sed -i '/broadcast/d' /etc/network/interfaces
+	#sed -i '/netmask/d' /etc/network/interfaces
+	#sed -i '/gateway/d' /etc/network/interfaces
 	# sets the new static  ip configuration for eth0
-	echo "iface eth0 inet static" >> /etc/network/interfaces
-	echo "address $static_ip">> /etc/network/interfaces
-	echo "broadcast $broadcast" >> /etc/network/interfaces
-	echo "netmask $netmask" >> /etc/network/interfaces
-	echo "gateway $gateway" >> /etc/network/interfaces
+	#echo "iface eth0 inet static" >> /etc/network/interfaces
+	#echo "address $static_ip">> /etc/network/interfaces
+	#echo "broadcast $broadcast" >> /etc/network/interfaces
+	#echo "netmask $netmask" >> /etc/network/interfaces
+	#echo "gateway $gateway" >> /etc/network/interfaces
+
+	#This method writes the IP Parameters into a blank copy of the interfaces file and overwrites the old one.
+	# Therefore "sed" isn't necessary anymore
+	# Interfaces_empty must exist
+
+	#wget --no-check-certificate --output-document=/etc/network/interfaces_empty  https://raw.githubusercontent.com/BPMspaceUG/HEMS/master/_Metasplitable_Template/interfaces_empty
+
+
+	echo "iface eth0 inet static" >> /etc/network/interfaces_empty
+	echo "address $static_ip">> /etc/network/interfaces_empty
+	echo "broadcast $broadcast" >> /etc/network/interfaces_empty
+	echo "netmask $netmask" >> /etc/network/interfaces_empty
+	echo "gateway $gateway" >> /etc/network/interfaces_empty
+	sudo mv /etc/network/interfaces /etc/network/interfaces_old #backups the old interfaces file
+	sudo mv /etc/network/interfaces_empty /etc/network/interfaces #copies the new generated interfaces file
 
 	sleep 1
 	sudo /etc/init.d/networking restart
