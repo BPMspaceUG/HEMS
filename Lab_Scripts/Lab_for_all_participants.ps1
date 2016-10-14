@@ -166,5 +166,5 @@ Write-Output "------------------------------------------------------------" `n
 Start-Sleep -Seconds 5
 
 #Back to Startmenu
-. \Start.ps1
+". \Start.ps1"
 
