@@ -51,7 +51,7 @@ else
 	sudo /etc/init.d/networking restart
 	sleep 1
 	echo date >> /etc/init.d/vm-autoconfiguration_log.txt
-	echo "Ip Address successfully changed to $$static_ip">> /etc/init.d/vm-autoconfiguration_log.txt
+	echo "Ip Address successfully changed to $static_ip">> /etc/init.d/vm-autoconfiguration_log.txt
 
 fi
 

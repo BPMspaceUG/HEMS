@@ -141,7 +141,7 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
                 $ms_participant_vhd_path = "$participant_location$i\$MS_VMName\$MS_VMName.VHDX"       
                 $participant_path = "$participant_location$i"
                 
-                . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$ms_template_path" -VHDX_Path "$ms_participant_vhd_path" -VM_Name $MS_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $MS_MAC 
+                . .\Create-DifferencingVM_MS.ps1 -TemplatePath "$ms_template_path" -VHDX_Path "$ms_participant_vhd_path" -VM_Name $MS_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $MS_MAC 
 
                 Write-Output "$MS_VMName created"
                 Write-Output "MAC-Address: $MS_MAC"
@@ -152,7 +152,7 @@ $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some 
                 $win_participant_vhd_path = "$participant_location$i\$Win_VMName\$Win_VMName.VHDX"       
                 $participant_path = "$participant_location$i"
 
-                . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_participant_vhd_path" -VM_Name $Win_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
+                . .\Create-DifferencingVM_Win.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_participant_vhd_path" -VM_Name $Win_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
 
                 }
 
