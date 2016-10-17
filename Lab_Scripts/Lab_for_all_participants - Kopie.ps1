@@ -50,8 +50,7 @@ Set-ItemProperty -Path "$template_location\_Windows_Server_Template\_Windows_Ser
 if (!$P_count) {
 $P_count = [convert]::ToInt32((Read-Host "How many participants has this course?"), 10)
 }
-$VM_count = $P_count + 1
-$VM_count_towrite = ($P_count + 1) * 3
+$VM_count = $P_count * 3
 $P_count = "{0:00}" -f $P_count
 
 Write-Output `n "$P_count attendees will participate." `n
@@ -60,7 +59,7 @@ Write-Output "$VM_count VMs will now be generated ."
 Write-Output "------------------------------------------------------------" `n
 Start-Sleep -Seconds 3
 
-<#
+
 $trainer_vm = Get-VM -name "*.trainer.net" -ErrorAction SilentlyContinue #Checks, if the trainer VMs exist already
 if ($trainer_vm)
     {
@@ -103,12 +102,8 @@ else
 
                      
 }    
-#>
 
-foreach ($i in 0..$VM_count)
-           {
-    $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some VMs exist already
-    
+$vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some VMs exist already
     if ($vm){
      Write-Output "The following VMs exist already:" 
      Write-Output "kali.lab$i.net" "linux.lab$i.net" "windows.lab$i.net"
@@ -117,6 +112,10 @@ foreach ($i in 0..$VM_count)
      Write-Output "Those VMs will stay for the moment." `n
     }
     else{
+
+        foreach ($i in 1..$P_count)
+           {
+
            
             $i = [convert]::ToInt32($i, 10)
             $i = "{0:00}" -f $i
@@ -160,9 +159,9 @@ foreach ($i in 0..$VM_count)
 }
 
 Write-Output "------------------------------------------------------------" `n
-Write-Output "$VM_count_toWrite VMs have been created"
+Write-Output "$VM_count VMs have been created"
 Start-Sleep -Seconds 5
 
 #Back to Startmenu
-. $script_location\Start.ps1
+". \Start.ps1"
 
