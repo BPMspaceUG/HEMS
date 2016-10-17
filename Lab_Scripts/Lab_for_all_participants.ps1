@@ -1,6 +1,6 @@
 # Defines external Parameters
 param (
-[int]$P_count
+[int]$participant_count
 )
 
 # Global Variables
@@ -47,14 +47,13 @@ Set-ItemProperty -Path "$template_location\_Windows_Server_Template\_Windows_Ser
 
 #Question for number of participants
 
-if (!$P_count) {
-$P_count = [convert]::ToInt32((Read-Host "How many participants has this course?"), 10)
+if (!$participant_count) {
+$participant_count = [convert]::ToInt32((Read-Host "How many participants has this course?"), 10)
 }
-$VM_count = $P_count + 1
-$VM_count_towrite = ($P_count + 1) * 3
-$P_count = "{0:00}" -f $P_count
+$VM_count = ($participant_count + 1) * 3
+$participant_count = "{0:00}" -f $participant_count
 
-Write-Output `n "$P_count attendees will participate." `n
+Write-Output `n "$participant_count attendees will participate." `n
 Write-Output "$VM_count VMs will now be generated ."
 
 Write-Output "------------------------------------------------------------" `n
@@ -105,7 +104,7 @@ else
 }    
 #>
 
-foreach ($i in 0..$VM_count)
+foreach ($i in 0..$participant_count)
            {
     $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some VMs exist already
     
@@ -160,7 +159,7 @@ foreach ($i in 0..$VM_count)
 }
 
 Write-Output "------------------------------------------------------------" `n
-Write-Output "$VM_count_toWrite VMs have been created"
+Write-Output "$VM_count VMs have been created"
 Start-Sleep -Seconds 5
 
 #Back to Startmenu
