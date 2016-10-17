@@ -8,9 +8,11 @@ $drive = "D:"
 $template_location = "C:\VM-Templates"
 $trainer_location = "$drive\Lab\Trainer"
 $participant_location = "$drive\Lab\Teilnehmer_"
+$participant_path = "$participant_location$i"
 $vSwitch = "Lab_Switch"
 $script_location = "C:\Hems-Repository\Lab_Scripts" # auf MITSM_HYPERV_04
 $mac_scope = "00155DB2"
+
 
 #Section for Module Imports
 #Import-Module Create-DifferencingVM
@@ -127,8 +129,7 @@ foreach ($i in 0..$participant_count)
                 #Create Kali VM Clones
                 $Kali_VMName="kali.lab$i.net"
                 $Kali_MAC = "$mac_scope$kali_vm_type$Hex_i"
-                $kali_participant_vhd_path = "$participant_location$i\$Kali_VMName\$Kali_VMName.VHDX"       
-                $participant_path = "$participant_location$i"
+                $kali_participant_vhd_path = "$participant_path\$Kali_VMName\$Kali_VMName.VHDX"       
 
                 . .\Create-DifferencingVM_Kali.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
 
@@ -138,8 +139,7 @@ foreach ($i in 0..$participant_count)
                 #Create Metasploitable VM Clones
                 $MS_VMName="linux.lab$i.net"
                 $MS_MAC = "$mac_scope$ms_vm_type$Hex_i"
-                $ms_participant_vhd_path = "$participant_location$i\$MS_VMName\$MS_VMName.VHDX"       
-                $participant_path = "$participant_location$i"
+                $ms_participant_vhd_path = "$participant_path\$MS_VMName\$MS_VMName.VHDX"       
                 
                 . .\Create-DifferencingVM_MS.ps1 -TemplatePath "$ms_template_path" -VHDX_Path "$ms_participant_vhd_path" -VM_Name $MS_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $MS_MAC 
 
@@ -149,11 +149,18 @@ foreach ($i in 0..$participant_count)
                 #Create Windows VM Clones
                 $Win_VMName="windows.lab$i.net"
                 $Win_MAC = "$mac_scope$win_vm_type$Hex_i"
-                $win_participant_vhd_path = "$participant_location$i\$Win_VMName\$Win_VMName.VHDX"       
-                $participant_path = "$participant_location$i"
+                $win_participant_vhd_path = "$participant_path\$Win_VMName\$Win_VMName.VHDX"       
 
                 . .\Create-DifferencingVM_Win.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_participant_vhd_path" -VM_Name $Win_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
-
+                
+                # Create Windows Server VM Clone only for the trainer --> only if $i = 0
+                if ($i = 0) 
+                    {
+                    $Winserv_VMName = "winserver.lab$i.net"
+                    $Winserv_MAC = "$mac_scope$winserv_vm_type$Hex_i"
+                    $win_participant_vhd_path = "$participant_path\$Winserv_VMName\$Winserv_VMName.VHDX"          
+                    . .\Create-DifferencingVM_WinServer.ps1 -TemplatePath "$winserv_template_path" -VHDX_Path "$winserv_trainer_vhd_path" -VM_Name $Winserv_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Winserv_MAC 
+                    }
                 }
 
 }
