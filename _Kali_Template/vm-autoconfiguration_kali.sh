@@ -57,9 +57,8 @@ else
 	echo "broadcast $broadcast" >> /etc/network/interfaces_default_copy
 	echo "netmask $netmask" >> /etc/network/interfaces_default_copy
 	echo "gateway $gateway" >> /etc/network/interfaces_default_copy
-	echo "#interfaces_default copy" >> /etc/network/interfaces_default_copy
 	sudo cp /etc/network/interfaces /etc/network/interfaces_backup #backups the old interfaces file
-	sudo cp /etc/network/interfaces_default_copy /etc/network/interfaces #copies the new generated interfaces file
+	sudo mv /etc/network/interfaces_default_copy /etc/network/interfaces #moves the new generated interfaces file over the old one
 
 	sleep 1
 	sudo /etc/init.d/networking restart
