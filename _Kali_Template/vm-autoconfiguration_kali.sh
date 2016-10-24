@@ -52,14 +52,14 @@ else
 	# Interfaces_empty must exist
 
 	#wget --output-document=/etc/network/interfaces_empty  https://raw.githubusercontent.com/BPMspaceUG/HEMS/master/_Kali_Template/interfaces_empty
-
-	echo "address $static_ip">> /etc/network/interfaces_default
-	echo "broadcast $broadcast" >> /etc/network/interfaces_default
-	echo "netmask $netmask" >> /etc/network/interfaces_default
-	echo "gateway $gateway" >> /etc/network/interfaces_default
-	echo "#interfaces_default copy" >> /etc/network/interfaces_default
+	sudo cp /etc/network/interfaces_default /etc/network/interfaces_default_copy
+	echo "address $static_ip">> /etc/network/interfaces_default_copy
+	echo "broadcast $broadcast" >> /etc/network/interfaces_default_copy
+	echo "netmask $netmask" >> /etc/network/interfaces_default_copy
+	echo "gateway $gateway" >> /etc/network/interfaces_default_copy
+	echo "#interfaces_default copy" >> /etc/network/interfaces_default_copy
 	sudo cp /etc/network/interfaces /etc/network/interfaces_backup #backups the old interfaces file
-	sudo cp /etc/network/interfaces_default /etc/network/interfaces #copies the new generated interfaces file
+	sudo mv /etc/network/interfaces_default_copy /etc/network/interfaces #copies the new generated interfaces file
 
 	sleep 1
 	sudo /etc/init.d/networking restart
