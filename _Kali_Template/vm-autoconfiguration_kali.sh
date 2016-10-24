@@ -59,7 +59,7 @@ else
 	echo "gateway $gateway" >> /etc/network/interfaces_default_copy
 	echo "#interfaces_default copy" >> /etc/network/interfaces_default_copy
 	sudo cp /etc/network/interfaces /etc/network/interfaces_backup #backups the old interfaces file
-	sudo mv /etc/network/interfaces_default_copy /etc/network/interfaces #copies the new generated interfaces file
+	sudo cp /etc/network/interfaces_default_copy /etc/network/interfaces #copies the new generated interfaces file
 
 	sleep 1
 	sudo /etc/init.d/networking restart
