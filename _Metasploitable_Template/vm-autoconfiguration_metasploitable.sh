@@ -53,13 +53,13 @@ else
 	#wget --no-check-certificate --output-document=/etc/network/interfaces_empty  https://raw.githubusercontent.com/BPMspaceUG/HEMS/master/_Metasplitable_Template/interfaces_empty
 
 
-	echo "iface eth0 inet static" >> /etc/network/interfaces_empty
-	echo "address $static_ip">> /etc/network/interfaces_empty
-	echo "broadcast $broadcast" >> /etc/network/interfaces_empty
-	echo "netmask $netmask" >> /etc/network/interfaces_empty
-	echo "gateway $gateway" >> /etc/network/interfaces_empty
-	sudo mv /etc/network/interfaces /etc/network/interfaces_old #backups the old interfaces file
-	sudo mv /etc/network/interfaces_empty /etc/network/interfaces #copies the new generated interfaces file
+	sudo cp /etc/network/interfaces_default /etc/network/interfaces_default_copy
+	echo "address $static_ip">> /etc/network/interfaces_default_copy
+	echo "broadcast $broadcast" >> /etc/network/interfaces_default_copy
+	echo "netmask $netmask" >> /etc/network/interfaces_default_copy
+	echo "gateway $gateway" >> /etc/network/interfaces_default_copy
+	sudo cp /etc/network/interfaces /etc/network/interfaces_backup #backups the old interfaces file
+	sudo mv /etc/network/interfaces_default_copy /etc/network/interfaces #moves the new generated interfaces file over the old one
 
 	sleep 1
 	sudo /etc/init.d/networking restart
