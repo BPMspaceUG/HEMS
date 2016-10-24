@@ -1,7 +1,7 @@
 ﻿# HEMS Startmenü
 
 #$script_path = "C:\Users\Christian\OneDrive\Studium\Masterarbeit\mITSM\Skripte\Lab_Scripts"
-$script_path = "C:\Lab_Scripts" # auf MITSM_HYPERV_04
+$script_path = "C:\Hems-Repository\Lab_Scripts" # on MITSM_HYPERV_04
 
 $xAppName    = "MenuDemo"
 [BOOLEAN]$global:xExitSession=$false
