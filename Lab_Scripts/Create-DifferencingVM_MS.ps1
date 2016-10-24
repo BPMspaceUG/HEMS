@@ -30,7 +30,7 @@ $VM_Cores = 2
         Set-VM -Name $VM_Name -DynamicMemory -MemoryMaximumBytes $MemMaxBytes -MemoryMinimumBytes $MemMinBytes -MemoryStartupBytes $MemStartupBytes -ProcessorCount $VM_Cores
         
         # Assigns a new legacy network adapter and a static Mac-Address
-        Add-VMNetworkAdapter -VMName "$VM_Name" -IsLegacy $true -StaticMacAddress "$VM_StaticMac" -SwitchName $VM_Switch
+        Add-VMNetworkAdapter -VMName "$VM_Name" -IsLegacy $true -SwitchName $VM_Switch -StaticMacAddress "$VM_StaticMac" 
          
         #Enabling all Integration Services
         Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"

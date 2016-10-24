@@ -105,23 +105,6 @@ else
                      
 }    
 #>
-
-
-# Creates only one instance of the windows server
-$Winserv_VMName = "winserver.lab00.net"
-$Server_Hex_i = "00"
-$Winserv_MAC = "$mac_scope$winserv_vm_type$Server_Hex_i"
-$win_participant_vhd_path = "$participant_path\$Winserv_VMName\$Winserv_VMName.VHDX"          
-. .\Create-DifferencingVM_WinServer.ps1 -TemplatePath "$winserv_template_path" -VHDX_Path "$winserv_trainer_vhd_path" -VM_Name $Winserv_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Winserv_MAC 
-
-#Converting functions
-           
-$i = [convert]::ToInt32($i, 10)
-$i = "{0:00}" -f $i
-
-$Hex_i = [convert]::ToInt32($i, 10)
-$Hex_i = "{0:X2}" -f $Hex_i                    
-
 foreach ($i in 0..$participant_count)
            {
     $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some VMs exist already
@@ -135,7 +118,11 @@ foreach ($i in 0..$participant_count)
     }
     else{
 
-         
+                $i = [convert]::ToInt32($i, 10)
+                $i = "{0:00}" -f $i
+
+                $Hex_i = [convert]::ToInt32($i, 10)
+                $Hex_i = "{0:X2}" -f $Hex_i  
           
                 #Create Kali VM Clones
                 $Kali_VMName="kali.lab$i.net"
@@ -165,13 +152,13 @@ foreach ($i in 0..$participant_count)
                 . .\Create-DifferencingVM_Win.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_participant_vhd_path" -VM_Name $Win_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
                 
                 # Create Windows Server VM Clone only for the trainer --> only if $i = 0
-                <#if ($i = 0) 
+                if ($i -eq 0)
                     {
                     $Winserv_VMName = "winserver.lab$i.net"
                     $Winserv_MAC = "$mac_scope$winserv_vm_type$Hex_i"
-                    $win_participant_vhd_path = "$participant_path\$Winserv_VMName\$Winserv_VMName.VHDX"          
-                    . .\Create-DifferencingVM_WinServer.ps1 -TemplatePath "$winserv_template_path" -VHDX_Path "$winserv_trainer_vhd_path" -VM_Name $Winserv_VMName -VM_Path $trainer_path -VM_Switch $vSwitch -VM_StaticMac $Winserv_MAC 
-                    } #>
+                    $winserv_participant_vhd_path = "$participant_path\$Winserv_VMName\$Winserv_VMName.VHDX"          
+                    . .\Create-DifferencingVM_WinServer.ps1 -TemplatePath "$winserv_template_path" -VHDX_Path "$winserv_participant_vhd_path" -VM_Name $WinServ_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Winserv_MAC 
+                    }
         }
 
 }
