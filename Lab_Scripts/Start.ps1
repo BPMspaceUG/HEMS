@@ -45,9 +45,9 @@ function LoadMenuSystem(){
 				}
 			}
 			Switch ($xMenu2){
-				1{ . $script_path\Lab-für-alle-Teilnehmer-aufsetzen.ps1 }
+				1{ . $script_path\Lab-for-all-participants.ps1 }
 				2{ . $script_path\Lab_zuruecksetzen.ps1 }
-				3{ . $script_path\Lab_loeschen.ps1 }
+				3{ . $script_path\Delete-Lab.ps1 }
                 4{ . $script_path\Lab_herunterfahren.ps1 }
                 5{ . $script_path\Lab_neustarten.ps1 }
 
