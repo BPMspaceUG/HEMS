@@ -50,7 +50,7 @@ Set-ItemProperty -Path "$template_location\_Windows_Server_Template\_Windows_Ser
 #Question for number of participants
 
 if (!$participant_count) {
-$participant_count = [convert]::ToInt32((Read-Host "How many participants has this course?"), 10)
+    $participant_count = [convert]::ToInt32((Read-Host "How many participants has this course?"), 10)
 }
 $VM_count = ($participant_count + 1) * 3
 $participant_count = "{0:00}" -f $participant_count
