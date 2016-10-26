@@ -10,7 +10,7 @@ function LoadMenuSystem(){
 	[INT]$xMenu2=0
 	[BOOLEAN]$xValidSelection=$false
 	while ( $xMenu1 -lt 1 -or $xMenu1 -gt 7 ){
-		CLS
+		#CLS
 		#Hauptmenü
 		Write-Host "`n`t Hacking Labor Startmenü`n" 
 		Write-Host "`t`tTreffen Sie eine Auswahl: `n" 
@@ -30,7 +30,7 @@ function LoadMenuSystem(){
 	Switch ($xMenu1){    #… User has selected a valid entry.. load next menu
 		1 {
 			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 7 ){
-				CLS
+				#CLS
 				# Present the Menu Options
 				Write-Host "`n`tLabor verwalten`n" 
 				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
@@ -59,7 +59,7 @@ function LoadMenuSystem(){
 		}
 		2 {
 			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 7 ){
-				CLS
+				#CLS
 				# Present the Menu Options
 				Write-Host "`n`tUmgebung für einen Teilnehmer steuern`n" 
 				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
@@ -87,7 +87,7 @@ function LoadMenuSystem(){
 		}
         3 {
 			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 13 ){
-				CLS
+				#CLS
 				# Present the Menu Options
 				Write-Host "`n`tVM Typen verwalten`n" 
 				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
@@ -127,7 +127,7 @@ function LoadMenuSystem(){
 		}
 		4 {
 			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 13 ){
-				CLS
+				#CLS
 				# Present the Menu Options
 				Write-Host "`n`tEinzelne VMs steuern`n" 
 				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
@@ -170,7 +170,7 @@ function LoadMenuSystem(){
         5 { . $script_path\Manage-Lab\Show-LabOverview.ps1}
 		6 { 
                 while ( $xMenu2 -lt 1 -or $xMenu2 -gt 4 ){
-				CLS
+				#CLS
 				# Present the Menu Options
 				Write-Host "`n`tAuslastung HyperV Core anzeigen`n" 
 				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
