@@ -19,7 +19,8 @@ function LoadMenuSystem(){
         Write-Host "`t`t`t3. VM Typen verwalten " 
 		Write-Host "`t`t`t4. Einzelne VMs verwalten" 
 		Write-Host "`t`t`t5. Laborübersicht anzeigen" 
-        Write-Host "`t`t`t6. Auslastung Hyper-V ServerCore anzeigen" 
+        Write-Host "`t`t`t6. Auslastung Hyper-V ServerCore anzeigen"
+        Write-Host "`t`t`t7. Update lokales Git Repository" 
         Write-Host "`t`t`t7. Menü verlassen und zur Powershell zurückkehren`n " 
 		#… Retrieve the response from the user
 		[int]$xMenu1 = Read-Host "`t`tOption"
@@ -188,7 +189,8 @@ function LoadMenuSystem(){
 				2{ . $script_path\Manage-Core\Get-HostMemoryUsage.ps1 }
 				3{ . $script_path\Manage-Core\Get-PageFileInfo.ps1 } 
 				default { Write-Host "`n`tHauptmenü`n" ; break}
-			}}	
+			}}
+        7 { git pull}	
 	}
 }
 LoadMenuSystem
