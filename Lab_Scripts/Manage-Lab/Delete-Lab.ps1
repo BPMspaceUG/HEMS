@@ -2,6 +2,9 @@
 $participant_number
 )
 
+Write-Output $participant_number
+Start-Sleep 1
+
 # Deletes the complete Lab
 $script_path = "C:\Hems-Repository\Lab_Scripts" # on MITSM_HYPERV_04
 
