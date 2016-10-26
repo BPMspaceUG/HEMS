@@ -185,8 +185,8 @@ function LoadMenuSystem(){
 			}
 			Switch ($xMenu2){
 				1{ . $script_path\Manage-Core\Get-CPULoad.ps1 }
-				2{ . $script_path\Manage-VM\Get-HostMemoryUsage.ps1 }
-				3{ . $script_path\Manage-VM\Get-PageFileInfo.ps1 } 
+				2{ . $script_path\Manage-Core\Get-HostMemoryUsage.ps1 }
+				3{ . $script_path\Manage-Core\Get-PageFileInfo.ps1 } 
 				default { Write-Host "`n`tHauptmenü`n" ; break}
 			}}	
 	}
