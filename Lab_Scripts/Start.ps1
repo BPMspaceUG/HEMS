@@ -9,7 +9,7 @@ function LoadMenuSystem(){
 	[INT]$xMenu1=0
 	[INT]$xMenu2=0
 	[BOOLEAN]$xValidSelection=$false
-	while ( $xMenu1 -lt 1 -or $xMenu1 -gt 7 ){
+	while ( $xMenu1 -lt 1 -or $xMenu1 -gt 8 ){
 		#CLS
 		#Hauptmenü
 		Write-Host "`n`t Hacking Labor Startmenü`n" 
@@ -24,7 +24,7 @@ function LoadMenuSystem(){
         Write-Host "`t`t`t8. Menü verlassen und zur Powershell zurückkehren`n " 
 		#… Retrieve the response from the user
 		[int]$xMenu1 = Read-Host "`t`tOption"
-		if( $xMenu1 -lt 1 -or $xMenu1 -gt 7 ){
+		if( $xMenu1 -lt 1 -or $xMenu1 -gt 8 ){
 			Write-Host "`tSie können nur eine der aufgeführten Möglichkeiten auswählen`n" -Fore Red;start-Sleep -Seconds 1
 		}
 	}
