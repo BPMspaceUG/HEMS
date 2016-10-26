@@ -1,6 +1,6 @@
 ﻿#Laborübersicht anzeigen
 
-$script_path = "C:\Lab_Scripts" # auf MITSM_HYPERV_04
+$script_path = "C:\HEMS-Repository\Lab_Scripts" # auf MITSM_HYPERV_04
 
 # Anzahl der angelegten VMs ermitteln
 
