@@ -21,7 +21,7 @@ function LoadMenuSystem(){
 		Write-Host "`t`t`t5. Laborübersicht anzeigen" 
         Write-Host "`t`t`t6. Auslastung Hyper-V ServerCore anzeigen"
         Write-Host "`t`t`t7. Update lokales Git Repository" 
-        Write-Host "`t`t`t7. Menü verlassen und zur Powershell zurückkehren`n " 
+        Write-Host "`t`t`t8. Menü verlassen und zur Powershell zurückkehren`n " 
 		#… Retrieve the response from the user
 		[int]$xMenu1 = Read-Host "`t`tOption"
 		if( $xMenu1 -lt 1 -or $xMenu1 -gt 7 ){
