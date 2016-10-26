@@ -64,12 +64,12 @@ function LoadMenuSystem(){
 				# Present the Menu Options
 				Write-Host "`n`tUmgebung für einen Teilnehmer steuern`n" 
 				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
-				Write-Host "`t`t`t1. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer aufsetzen" 
-				Write-Host "`t`t`t2. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer zurücksetzen" 
-				Write-Host "`t`t`t3. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer löschen"
-                Write-Host "`t`t`t4. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer starten"
-                Write-Host "`t`t`t5. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer herunterfahren"   
-                Write-Host "`t`t`t6. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer neustarten" 
+				Write-Host "`t`t`t1. Umgebung für einen Teilnehmer aufsetzen" 
+				Write-Host "`t`t`t2. Umgebung für einen Teilnehmer zurücksetzen" 
+				Write-Host "`t`t`t3. Umgebung für einen Teilnehmer löschen"
+                Write-Host "`t`t`t4. Umgebung für einen Teilnehmer starten"
+                Write-Host "`t`t`t5. Umgebung für einen Teilnehmer herunterfahren"   
+                Write-Host "`t`t`t6. Umgebung für einen Teilnehmer neustarten" 
 				Write-Host "`t`t`t7. Hauptmenü`n" 
 				[int]$xMenu2 = Read-Host "`t`tOption:"
 			}
