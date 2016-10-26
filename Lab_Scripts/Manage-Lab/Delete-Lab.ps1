@@ -1,4 +1,8 @@
-﻿# Deletes the complete Lab
+﻿param (
+$participant_number
+)
+
+# Deletes the complete Lab
 $script_path = "C:\Hems-Repository\Lab_Scripts" # on MITSM_HYPERV_04
 
 # Gets the number of all VMs
@@ -35,7 +39,12 @@ Remove-VM winserver.lab* -force -ErrorAction SilentlyContinue
 Write-Output "Participant directories will be deleted"
 Get-ChildItem -Path "D:\Lab\" -Recurse | Where-Object {$_.Name -like "Teilnehmer_*"} | Remove-Item -Recurse
 
+if ($participant_number) {
+    . $script_path\Manage-Lab\Create-Lab.ps1 -participant_number $participant_number
+}
+
+else {
 #Zurück zum Startmenü
 . $script_path\Start.ps1
 
-
+}
