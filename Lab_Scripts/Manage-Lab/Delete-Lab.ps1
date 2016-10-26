@@ -1,5 +1,5 @@
 ﻿# Deletes the complete Lab
-$script_location = "C:\Hems-Repository\Lab_Scripts" # on MITSM_HYPERV_04
+$script_path = "C:\Hems-Repository\Lab_Scripts" # on MITSM_HYPERV_04
 
 # Gets the number of all VMs
 
@@ -36,6 +36,6 @@ Write-Output "Participant directories will be deleted"
 Get-ChildItem -Path "D:\Lab\" -Recurse | Where-Object {$_.Name -like "Teilnehmer_*"} | Remove-Item -Recurse
 
 #Zurück zum Startmenü
-. $script_location\Start.ps1
+. $script_path\Start.ps1
 
 

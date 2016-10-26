@@ -13,10 +13,10 @@ $VM_count = $VMs.count -4 # The templates are in the "get-vm" list, but they sho
 $participant_number = $VM_count / 3
 
 # Lab löschen
-. $script_path\Delete-Lab.ps1
+. $script_path\Manage-Lab\Delete-Lab.ps1
 
 # Lab neuaufsetzen
-. $script_path\Create-Lab.ps1 -participant_number $participant_number
+. $script_path\Manage-Lab\Create-Lab.ps1 -participant_number $participant_number
 
 #Zurück zum Startmenü
 . $script_path\Start.ps1

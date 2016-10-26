@@ -9,113 +9,186 @@ function LoadMenuSystem(){
 	[INT]$xMenu1=0
 	[INT]$xMenu2=0
 	[BOOLEAN]$xValidSelection=$false
-	while ( $xMenu1 -lt 1 -or $xMenu1 -gt 6 ){
+	while ( $xMenu1 -lt 1 -or $xMenu1 -gt 7 ){
 		CLS
 		#Hauptmenü
 		Write-Host "`n`t Hacking Labor Startmenü`n" 
 		Write-Host "`t`tTreffen Sie eine Auswahl: `n" 
-		Write-Host "`t`t`t1. Labor für alle Teilnehmer steuern" 
-		Write-Host "`t`t`t2. Umgebung für einen Teilnehmer steuern " 
-		Write-Host "`t`t`t3. Einzelne VMs steuern" 
-		Write-Host "`t`t`t4. Laborübersicht anzeigen" 
-        Write-Host "`t`t`t5. Auslastung Hyper-V ServerCore anzeigen" 
-        Write-Host "`t`t`t6. Menü verlassen und zur Powershell zurückkehren`n " 
+		Write-Host "`t`t`t1. Labor verwalten" 
+		Write-Host "`t`t`t2. Umgebung einzelner Teilnehmer verwalten "
+        Write-Host "`t`t`t3. VM Typen verwalten " 
+		Write-Host "`t`t`t4. Einzelne VMs verwalten" 
+		Write-Host "`t`t`t5. Laborübersicht anzeigen" 
+        Write-Host "`t`t`t6. Auslastung Hyper-V ServerCore anzeigen" 
+        Write-Host "`t`t`t7. Menü verlassen und zur Powershell zurückkehren`n " 
 		#… Retrieve the response from the user
 		[int]$xMenu1 = Read-Host "`t`tOption"
-		if( $xMenu1 -lt 1 -or $xMenu1 -gt 6 ){
+		if( $xMenu1 -lt 1 -or $xMenu1 -gt 7 ){
 			Write-Host "`tSie können nur eine der aufgeführten Möglichkeiten auswählen`n" -Fore Red;start-Sleep -Seconds 1
 		}
 	}
 	Switch ($xMenu1){    #… User has selected a valid entry.. load next menu
 		1 {
-			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 6 ){
+			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 7 ){
 				CLS
 				# Present the Menu Options
-				Write-Host "`n`tLabor für alle Teilnehmer steuern`n" 
+				Write-Host "`n`tLabor verwalten`n" 
 				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
-				Write-Host "`t`t`t1. Gesamtes Labor für alle Teilnehmer aufsetzen" 
-				Write-Host "`t`t`t2. Gesamtes Labor zurücksetzen" 
-				Write-Host "`t`t`t3. Gesamtes Labor löschen" 
-				Write-Host "`t`t`t4. Gesamtes Labor herunterfahren" 
-                Write-Host "`t`t`t5. Gesamtes Labor neustarten" 
-                Write-Host "`t`t`t6. Hauptmenü`n" 
+				Write-Host "`t`t`t1. Labor aufsetzen" 
+				Write-Host "`t`t`t2. Labor zurücksetzen" 
+				Write-Host "`t`t`t3. Labor löschen"
+                Write-Host "`t`t`t4. Labor starten" 
+				Write-Host "`t`t`t5. Labor herunterfahren" 
+                Write-Host "`t`t`t6. Labor neustarten" 
+                Write-Host "`t`t`t7. Hauptmenü`n" 
 				[int]$xMenu2 = Read-Host "`t`tOption: "
-				if( $xMenu2 -lt 1 -or $xMenu2 -gt 6 ){
+				if( $xMenu2 -lt 1 -or $xMenu2 -gt 7 ){
 					Write-Host "`tSie können nur eine der aufgeführten Optionen auswählen.`n" -Fore Red;start-Sleep -Seconds 1
 				}
 			}
 			Switch ($xMenu2){
-				1{ . $script_path\Lab-for-all-participants.ps1 }
-				2{ . $script_path\Lab_zuruecksetzen.ps1 }
-				3{ . $script_path\Delete-Lab.ps1 }
-                4{ . $script_path\Lab_herunterfahren.ps1 }
-                5{ . $script_path\Lab_neustarten.ps1 }
+				1{ . $script_path\Manage-Lab\Create-Lab.ps1 }
+				2{ . $script_path\Manage-Lab\Reset-Lab.ps1 }
+				3{ . $script_path\Manage-Lab\Delete-Lab.ps1 }
+                4{ . $script_path\Manage-Lab\Start-Lab.ps1}
+                5{ . $script_path\Manage-Lab\Shutdown-Lab.ps1 }
+                6{ . $script_path\Manage-Lab\Restart-Lab.ps1 }
 
 				default { Write-Host "`n`tHauptmenü`n" ; break}
 			}
 		}
 		2 {
-			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 5 ){
+			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 7 ){
 				CLS
 				# Present the Menu Options
 				Write-Host "`n`tUmgebung für einen Teilnehmer steuern`n" 
 				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
 				Write-Host "`t`t`t1. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer aufsetzen" 
 				Write-Host "`t`t`t2. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer zurücksetzen" 
-				Write-Host "`t`t`t3. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer löschen" 
-                Write-Host "`t`t`t4. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer neustarten" 
-				Write-Host "`t`t`t5. Hauptmenü`n" 
+				Write-Host "`t`t`t3. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer löschen"
+                Write-Host "`t`t`t4. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer starten"
+                Write-Host "`t`t`t5. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer herunterfahren"   
+                Write-Host "`t`t`t6. Umgebung (Kali, Metasploitable & Windows) für einen Teilnehmer neustarten" 
+				Write-Host "`t`t`t7. Hauptmenü`n" 
 				[int]$xMenu2 = Read-Host "`t`tOption:"
 			}
-			if( $xMenu2 -lt 1 -or $xMenu2 -gt 5 ){
+			if( $xMenu2 -lt 1 -or $xMenu2 -gt 7 ){
 				Write-Host "`tSie können nur eine der aufgeführten Möglichkeiten auswählen`n" -Fore Red;start-Sleep -Seconds 1
 			}
 			Switch ($xMenu2){
-				1{ . $script_path\Umgebung-fuer-einen-Teilnehmer-aufsetzen.ps1 }
-				2{ . $script_path\Umgebung-eines-Teilnehmers-zuruecksetzen.ps1 }
-				3{ . $script_path\Umgebung-eines-Teilnehmers-loeschen.ps1 }
-                4{ . $script_path\Umgebung-eines-Teilnehmers-neustarten.ps1 }
+				1{ . $script_path\Manage-Environment\Create-Environment.ps1 }
+				2{ . $script_path\Manage-Environment\Reset-Environment.ps1 }
+				3{ . $script_path\Manage-Environment\Delete-Environment.ps1 }
+                4{ . $script_path\Manage-Environment\Start-Environment.ps1 }
+                5{ . $script_path\Manage-Environment\Shutdown-Environment.ps1 }
+                6{ . $script_path\Manage-Environment\Restart-Environment.ps1 }
 				default { Write-Host "`n`tHauptmenü`n" ; break}
 			}
 		}
-		3 {
-			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 10 ){
+        3 {
+			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 13 ){
+				CLS
+				# Present the Menu Options
+				Write-Host "`n`tVM Typen verwalten`n" 
+				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
+				Write-Host "`t`t`t1. Kali VMs starten" 
+                Write-Host "`t`t`t2. Kali VMs herunterfahren" 
+                Write-Host "`t`t`t3. Kali-VMs neustarten" 
+				Write-Host "`t`t`t4. Metasploitable VMs starten" 
+                Write-Host "`t`t`t5. Metasploitable VMs herunterfahren" 
+                Write-Host "`t`t`t6. Metasploitable VMs neustarten" 
+				Write-Host "`t`t`t7. Windows VMs starten" 
+				Write-Host "`t`t`t8. Windows VMs herunterfahren" 
+				Write-Host "`t`t`t9. Windows VMs neutstarten"
+				Write-Host "`t`t`t10. Windows Server VMs starten" 
+				Write-Host "`t`t`t11. Windows Server VMs herunterfahren" 
+				Write-Host "`t`t`t12. Windows Server VMs neustarten"  
+				Write-Host "`t`t`t13. Hauptmenü`n" 
+				[int]$xMenu2 = Read-Host "`t`tOption:"
+				if( $xMenu2 -lt 1 -or $xMenu2 -gt 13 ){
+					Write-Host "`tSie können nur eine der aufgeführten Möglichkeiten auswählen`n" -Fore Red;start-Sleep -Seconds 1
+				}
+			}
+			Switch ($xMenu2){
+				1{ . $script_path\Manage-VMTypes\Start-KaliVMs.ps1 }
+				2{ . $script_path\Manage-VMTypes\Shutdown-KaliVMs.ps1 }
+				3{ . $script_path\Manage-VMTypes\Restart-KaliVMs.ps1 }
+                4{ . $script_path\Manage-VMTypes\Start-MetasploitableVMs.ps1 }
+                5{ . $script_path\Manage-VMTypes\Shutdown-MetasploitableVMs.ps1 }
+                6{ . $script_path\Manage-VMTypes\Restart-MetasploitableVMs.ps1 }
+                7{ . $script_path\Manage-VMTypes\Start-WindowsVMs.ps1 }
+                8{ . $script_path\Manage-VMTypes\Shutdown-WindowsVMs.ps1 }
+                9{ . $script_path\Manage-VMTypes\Restart-WindowsVMs.ps1 }
+                10{ . $script_path\Manage-VMTypes\Start-WindowsServerVMs.ps1 }
+                11{ . $script_path\Manage-VMTypes\Shutdown-WindowsServerVMs.ps1 }
+                12{ . $script_path\Manage-VMTypes\Restart-WindowsServerVMs.ps1 }
+				default { Write-Host "`n`tHauptmenü`n" ; break}
+			}
+		}
+		4 {
+			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 13 ){
 				CLS
 				# Present the Menu Options
 				Write-Host "`n`tEinzelne VMs steuern`n" 
 				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
 				Write-Host "`t`t`t1. Kali-VM für Teilnehmer X aufsetzen" 
-                Write-Host "`t`t`t4. Kali-VM von Teilnehmer X zurücksetzen" 
-                Write-Host "`t`t`t7. Kali-VM von Teilnehmer X neustarten" 
-				Write-Host "`t`t`t2. Linux (Metasploitable)-VM für Teilnehmer X aufsetzen" 
+                Write-Host "`t`t`t2. Kali-VM von Teilnehmer X zurücksetzen" 
+                Write-Host "`t`t`t3. Kali-VM von Teilnehmer X neustarten" 
+				Write-Host "`t`t`t4. Linux (Metasploitable)-VM für Teilnehmer X aufsetzen" 
                 Write-Host "`t`t`t5. Linux (Metasploitable)-VM von Teilnehmer X zurücksetzen" 
-                Write-Host "`t`t`t8. Linux (Metasploitable)-VM von Teilnehmer X neustarten" 
-				Write-Host "`t`t`t3. Windows-VM für Teilnehmer X aufsetzen" 
-				Write-Host "`t`t`t6. Windows-VM von Teilnehmer X zurücksetzen" 
-				Write-Host "`t`t`t9. Windows-VM von Teilnehmer X neustarten" 
-				Write-Host "`t`t`t10. Hauptmenü`n" 
+                Write-Host "`t`t`t6. Linux (Metasploitable)-VM von Teilnehmer X neustarten" 
+				Write-Host "`t`t`t7. Windows-VM für Teilnehmer X aufsetzen" 
+				Write-Host "`t`t`t8. Windows-VM von Teilnehmer X zurücksetzen" 
+				Write-Host "`t`t`t9. Windows-VM von Teilnehmer X neustarten"
+				Write-Host "`t`t`t10. Windows Server VM aufsetzen" 
+				Write-Host "`t`t`t11. Windows Server zurücksetzen" 
+				Write-Host "`t`t`t12. Windows Server VM neustarten"  
+				Write-Host "`t`t`t13. Hauptmenü`n" 
 				[int]$xMenu2 = Read-Host "`t`tOption:"
-				if( $xMenu2 -lt 1 -or $xMenu2 -gt 10 ){
+				if( $xMenu2 -lt 1 -or $xMenu2 -gt 13 ){
 					Write-Host "`tSie können nur eine der aufgeführten Möglichkeiten auswählen`n" -Fore Red;start-Sleep -Seconds 1
 				}
 			}
 			Switch ($xMenu2){
-				1{ Write-Host "`n`tYou Selected Option 1 – Put your Function or Action Here`n" ;start-Sleep -Seconds 3 }
-				2{ Write-Host "`n`tYou Selected Option 2 – Put your Function or Action Here`n" ;start-Sleep -Seconds 3 }
-				3{ Write-Host "`n`tYou Selected Option 3 – Put your Function or Action Here`n" ;start-Sleep -Seconds 3 }
-                4{ Write-Host "`n`tYou Selected Option 3 – Put your Function or Action Here`n" ;start-Sleep -Seconds 3 }
-                5{ Write-Host "`n`tYou Selected Option 3 – Put your Function or Action Here`n" ;start-Sleep -Seconds 3 }
-                6{ Write-Host "`n`tYou Selected Option 3 – Put your Function or Action Here`n" ;start-Sleep -Seconds 3 }
-                7{ Write-Host "`n`tYou Selected Option 3 – Put your Function or Action Here`n" ;start-Sleep -Seconds 3 }
-                8{ Write-Host "`n`tYou Selected Option 3 – Put your Function or Action Here`n" ;start-Sleep -Seconds 3 }
-                9{ Write-Host "`n`tYou Selected Option 3 – Put your Function or Action Here`n" ;start-Sleep -Seconds 3 }
+				1{ . $script_path\Manage-VM\Create-KaliVM.ps1 }
+				2{ . $script_path\Manage-VM\Reset-KaliVM.ps1 }
+				3{ . $script_path\Manage-VM\Restart-KaliVM.ps1 }
+                4{ . $script_path\Manage-VM\Create-MetasploitableVM.ps1 }
+                5{ . $script_path\Manage-VM\Reset-MetasploitableVM.ps1 }
+                6{ . $script_path\Manage-VM\Restart-MetasploitableVM.ps1 }
+                7{ . $script_path\Manage-VM\Create-WindowsVM.ps1 }
+                8{ . $script_path\Manage-VM\Reset-WindowsVM.ps1 }
+                9{ . $script_path\Manage-VM\Restart-WindowsVM.ps1 }
+                10{ . $script_path\Manage-VM\Create-WindowsServerVM.ps1 }
+                11{ . $script_path\Manage-VM\Reset-WindowsServerVM.ps1 }
+                12{ . $script_path\Manage-VM\Restart-WindowsServerVM.ps1 }
 				default { Write-Host "`n`tHauptmenü`n" ; break}
 			}
 		}
 		default { $global:xExitSession=$true;break }
         
-        4 { . $script_path\Laboruebersicht-anzeigen.ps1}
-		5 { Write-Host "`t`t`Noch nicht implementiert"; start-sleep -seconds 5}	
+        5 { . $script_path\Manage-Lab\Show-LabOverview.ps1}
+		6 { 
+                while ( $xMenu2 -lt 1 -or $xMenu2 -gt 4 ){
+				CLS
+				# Present the Menu Options
+				Write-Host "`n`tAuslastung HyperV Core anzeigen`n" 
+				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
+				Write-Host "`t`t`t1. CPU Load" 
+                Write-Host "`t`t`t2. RAM Auslastung" 
+                Write-Host "`t`t`t3. Auslagerungsdatei" 
+				Write-Host "`t`t`t4. Hauptmenü`n" 
+				[int]$xMenu2 = Read-Host "`t`tOption:"
+				if( $xMenu2 -lt 1 -or $xMenu2 -gt 4 ){
+					Write-Host "`tSie können nur eine der aufgeführten Möglichkeiten auswählen`n" -Fore Red;start-Sleep -Seconds 1
+				}
+			}
+			Switch ($xMenu2){
+				1{ . $script_path\Manage-Core\Get-CPULoad.ps1 }
+				2{ . $script_path\Manage-VM\Get-HostMemoryUsage.ps1 }
+				3{ . $script_path\Manage-VM\Get-PageFileInfo.ps1 } 
+				default { Write-Host "`n`tHauptmenü`n" ; break}
+			}}	
 	}
 }
 LoadMenuSystem
