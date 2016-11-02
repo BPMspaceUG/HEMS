@@ -29,7 +29,7 @@ $VM_Cores = 2
         Set-VM -Name $VM_Name -DynamicMemory -MemoryMaximumBytes $MemMaxBytes -MemoryMinimumBytes $MemMinBytes -MemoryStartupBytes $MemStartupBytes -ProcessorCount $VM_Cores
 
         # Assigns a new, but static Mac-Address to the Virtual NIC
-        Get-VM -Name $VM_Name | Get-VMNetworkAdapter | Set-VMNetworkAdapter -StaticMacAddress $VM_StaticMac
+        Get-VM -Name $VM_Name | Get-VMNetworkAdapter | Set-VMNetworkAdapter -StaticMacAddress $VM_StaticMac -MacAddressSpoofing On
 
         #Enabling all Integration Services
         Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"

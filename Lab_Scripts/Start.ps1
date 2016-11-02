@@ -127,7 +127,7 @@ function LoadMenuSystem(){
 			}
 		}
 		4 {
-			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 13 ){
+			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 15 ){
 				#CLS
 				# Present the Menu Options
 				Write-Host "`n`tEinzelne VMs steuern`n" 
@@ -135,18 +135,20 @@ function LoadMenuSystem(){
 				Write-Host "`t`t`t1. Kali-VM für Teilnehmer X aufsetzen" 
                 Write-Host "`t`t`t2. Kali-VM von Teilnehmer X zurücksetzen" 
                 Write-Host "`t`t`t3. Kali-VM von Teilnehmer X neustarten" 
-				Write-Host "`t`t`t4. Linux (Metasploitable)-VM für Teilnehmer X aufsetzen" 
-                Write-Host "`t`t`t5. Linux (Metasploitable)-VM von Teilnehmer X zurücksetzen" 
-                Write-Host "`t`t`t6. Linux (Metasploitable)-VM von Teilnehmer X neustarten" 
+				Write-Host "`t`t`t4. Metasploitable VM für Teilnehmer X aufsetzen" 
+                Write-Host "`t`t`t5. Metasploitable VM von Teilnehmer X zurücksetzen" 
+                Write-Host "`t`t`t6. Metasploitable VM von Teilnehmer X neustarten" 
 				Write-Host "`t`t`t7. Windows-VM für Teilnehmer X aufsetzen" 
 				Write-Host "`t`t`t8. Windows-VM von Teilnehmer X zurücksetzen" 
 				Write-Host "`t`t`t9. Windows-VM von Teilnehmer X neustarten"
 				Write-Host "`t`t`t10. Windows Server VM aufsetzen" 
 				Write-Host "`t`t`t11. Windows Server zurücksetzen" 
-				Write-Host "`t`t`t12. Windows Server VM neustarten"  
-				Write-Host "`t`t`t13. Hauptmenü`n" 
+				Write-Host "`t`t`t12. Windows Server VM neustarten"
+                Write-Host "`t`t`t13. Template Schreibschutz aktivieren"
+                Write-Host "`t`t`t14. Template Schreibschutz deaktivieren"                
+				Write-Host "`t`t`t15. Hauptmenü`n" 
 				[int]$xMenu2 = Read-Host "`t`tOption:"
-				if( $xMenu2 -lt 1 -or $xMenu2 -gt 13 ){
+				if( $xMenu2 -lt 1 -or $xMenu2 -gt 15 ){
 					Write-Host "`tSie können nur eine der aufgeführten Möglichkeiten auswählen`n" -Fore Red;start-Sleep -Seconds 1
 				}
 			}
@@ -163,6 +165,8 @@ function LoadMenuSystem(){
                 10{ . $script_path\Manage-VM\Create-WindowsServerVM.ps1 }
                 11{ . $script_path\Manage-VM\Reset-WindowsServerVM.ps1 }
                 12{ . $script_path\Manage-VM\Restart-WindowsServerVM.ps1 }
+                13{. $script_path\Manage-VM\Enable-ReadMode.ps1}
+                14{. $script_path\Manage-VM\Disable-ReadMode.ps1}
 				default { Write-Host "`n`tHauptmenü`n" ; break}
 			}
 		}

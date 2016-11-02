@@ -31,6 +31,7 @@ $VM_Cores = 2
         
         # Assigns a new legacy network adapter and a static Mac-Address
         Add-VMNetworkAdapter -VMName "$VM_Name" -IsLegacy $true -SwitchName $VM_Switch -StaticMacAddress "$VM_StaticMac" 
+        Get-VMNetworkAdapter -VMName $VM_Name | Set-VMNetworkAdapter -MacAddressSpoofing On
          
         #Enabling all Integration Services
         Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"
