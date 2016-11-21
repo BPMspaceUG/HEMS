@@ -101,8 +101,8 @@ else
 fi
 
 #Re-Register Nessus Installation
-sudo /etc/init.d/nessusd stop
-sudo  /opt/nessus/sbin/nessuscli fetch --register-offline /opt/nessus/etc/nessus/nessus.license
-sudo /etc/init.d/nessusd start
+#sudo /etc/init.d/nessusd stop
+#sudo  /opt/nessus/sbin/nessuscli fetch --register-offline /opt/nessus/etc/nessus/nessus.license
+#sudo /etc/init.d/nessusd start
 
 
