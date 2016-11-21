@@ -8,7 +8,6 @@ $drive = "D:"
 $template_location = "C:\VM-Templates"
 $trainer_location = "$drive\Lab\Trainer"
 $participant_location = "$drive\Lab\Teilnehmer_"
-$participant_path = "$participant_location$i"
 $vSwitch = "Lab_Switch"
 $script_path = "C:\Hems-Repository\Lab_Scripts" # auf MITSM_HYPERV_04
 $module_path = "C:\Hems-Repository\Lab_Scripts\modules"
@@ -62,6 +61,7 @@ Start-Sleep -Seconds 3
 
 foreach ($i in 0..$participant_number)
            {
+    $participant_path = "$participant_location$i"
     $vm = Get-VM -name "*-lab$i" -ErrorAction SilentlyContinue #Checks, if some VMs exist already
     
     if ($vm){

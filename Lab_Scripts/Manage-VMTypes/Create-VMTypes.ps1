@@ -9,7 +9,6 @@ $drive = "D:"
 $template_location = "C:\VM-Templates"
 $trainer_location = "$drive\Lab\Trainer"
 $participant_location = "$drive\Lab\Teilnehmer_"
-$participant_path = "$participant_location$i"
 $vSwitch = "Lab_Switch"
 $script_path = "C:\Hems-Repository\Lab_Scripts" # auf MITSM_HYPERV_04
 $module_path = "C:\Hems-Repository\Lab_Scripts\modules"
@@ -63,11 +62,13 @@ Start-Sleep -Seconds 3
 
 foreach ($i in 0..$participant_number)
            {
-    $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some VMs exist already
+    $participant_path = "$participant_location$i"
+
+    $vm = Get-VM -name "*-lab$i" -ErrorAction SilentlyContinue #Checks, if some VMs exist already
     
     if ($vm){
      Write-Output "The following VMs exist already:" 
-     Write-Output "kali.lab$i.net" "linux.lab$i.net" "windows.lab$i.net"
+     Write-Output "kali-lab$i" "linux-lab$i" "windows-lab$i"
      Write-Output "$($vm.State)" `n 
      # TODO: Question, if these VMs schould rest or schould be deleted
      Write-Output "Those VMs will stay for the moment." `n
@@ -83,7 +84,7 @@ foreach ($i in 0..$participant_number)
 
                 if ($VM_Type -eq "Kali") {
                     #Create Kali VM Clones
-                    $Kali_VMName="kali.lab$i.net"
+                    $Kali_VMName="kali-lab$i"
                     $Kali_MAC = "$mac_scope$kali_vm_type$Hex_i"
                     $kali_participant_vhd_path = "$participant_path\$Kali_VMName\$Kali_VMName.VHDX"       
 
@@ -94,7 +95,7 @@ foreach ($i in 0..$participant_number)
                 }
                 elseif ($VM_Type -eq "Metasploitable") {
                     #Create Metasploitable VM Clones
-                    $MS_VMName="linux.lab$i.net"
+                    $MS_VMName="linux-lab$i"
                     $MS_MAC = "$mac_scope$ms_vm_type$Hex_i"
                     $ms_participant_vhd_path = "$participant_path\$MS_VMName\$MS_VMName.VHDX"       
                 
@@ -105,7 +106,7 @@ foreach ($i in 0..$participant_number)
                     }
                 elseif ($VM_Type -eq "Windows") {
                     #Create Windows VM Clones
-                    $Win_VMName="windows.lab$i.net"
+                    $Win_VMName="windows-lab$i"
                     $Win_MAC = "$mac_scope$win_vm_type$Hex_i"
                     $win_participant_vhd_path = "$participant_path\$Win_VMName\$Win_VMName.VHDX"       
 
@@ -114,7 +115,7 @@ foreach ($i in 0..$participant_number)
                 # Create Windows Server VM Clone only for the trainer --> only if $i = 0
                 elseif ($i -eq "00", $VM_Type -eq "WindowsServer")
                     {
-                    $Winserv_VMName = "winserver.lab$i.net"
+                    $Winserv_VMName = "winserver-lab$i"
                     $Winserv_MAC = "$mac_scope$winserv_vm_type$Hex_i"
                     $winserv_participant_vhd_path = "$participant_path\$Winserv_VMName\$Winserv_VMName.VHDX"          
                     . $module_path\Create-DifferencingVM_WinServer.ps1 -TemplatePath "$winserv_template_path" -VHDX_Path "$winserv_participant_vhd_path" -VM_Name $WinServ_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Winserv_MAC 
