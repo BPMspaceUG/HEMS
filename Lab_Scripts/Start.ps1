@@ -87,26 +87,29 @@ function LoadMenuSystem(){
 			}
 		}
         3 {
-			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 13 ){
+			while ( $xMenu2 -lt 1 -or $xMenu2 -gt 16 ){
 				#CLS
 				# Present the Menu Options
 				Write-Host "`n`tVM Typen verwalten`n" 
 				Write-Host "`t`tTreffen Sie eine Auswahl`n" 
 				Write-Host "`t`t`t1. Kali VMs starten" 
                 Write-Host "`t`t`t2. Kali VMs herunterfahren" 
-                Write-Host "`t`t`t3. Kali-VMs neustarten" 
-				Write-Host "`t`t`t4. Metasploitable VMs starten" 
-                Write-Host "`t`t`t5. Metasploitable VMs herunterfahren" 
-                Write-Host "`t`t`t6. Metasploitable VMs neustarten" 
-				Write-Host "`t`t`t7. Windows VMs starten" 
-				Write-Host "`t`t`t8. Windows VMs herunterfahren" 
-				Write-Host "`t`t`t9. Windows VMs neutstarten"
-				Write-Host "`t`t`t10. Windows Server VMs starten" 
-				Write-Host "`t`t`t11. Windows Server VMs herunterfahren" 
-				Write-Host "`t`t`t12. Windows Server VMs neustarten"  
-				Write-Host "`t`t`t13. Hauptmenü`n" 
+                Write-Host "`t`t`t3. Kali VMs neustarten"
+                Write-Host "`t`t`t4. Kali VMs erstellen"
+				Write-Host "`t`t`t5. Metasploitable VMs starten" 
+                Write-Host "`t`t`t6. Metasploitable VMs herunterfahren" 
+                Write-Host "`t`t`t7. Metasploitable VMs neustarten"
+                Write-Host "`t`t`t8. Metasploitable VMs erstellen" 
+				Write-Host "`t`t`t9. Windows VMs starten" 
+				Write-Host "`t`t`t10. Windows VMs herunterfahren" 
+				Write-Host "`t`t`t11. Windows VMs neutstarten"
+                Write-Host "`t`t`t12. Windows VMs erstellen"
+				Write-Host "`t`t`t13. Windows Server VMs starten" 
+				Write-Host "`t`t`t14. Windows Server VMs herunterfahren" 
+				Write-Host "`t`t`t15. Windows Server VMs neustarten"
+				Write-Host "`t`t`t16. Hauptmenü`n" 
 				[int]$xMenu2 = Read-Host "`t`tOption:"
-				if( $xMenu2 -lt 1 -or $xMenu2 -gt 13 ){
+				if( $xMenu2 -lt 1 -or $xMenu2 -gt 16 ){
 					Write-Host "`tSie können nur eine der aufgeführten Möglichkeiten auswählen`n" -Fore Red;start-Sleep -Seconds 1
 				}
 			}
@@ -114,15 +117,18 @@ function LoadMenuSystem(){
 				1{ . $script_path\Manage-VMTypes\Start-KaliVMs.ps1 }
 				2{ . $script_path\Manage-VMTypes\Shutdown-KaliVMs.ps1 }
 				3{ . $script_path\Manage-VMTypes\Restart-KaliVMs.ps1 }
-                4{ . $script_path\Manage-VMTypes\Start-MetasploitableVMs.ps1 }
-                5{ . $script_path\Manage-VMTypes\Shutdown-MetasploitableVMs.ps1 }
-                6{ . $script_path\Manage-VMTypes\Restart-MetasploitableVMs.ps1 }
-                7{ . $script_path\Manage-VMTypes\Start-WindowsVMs.ps1 }
-                8{ . $script_path\Manage-VMTypes\Shutdown-WindowsVMs.ps1 }
-                9{ . $script_path\Manage-VMTypes\Restart-WindowsVMs.ps1 }
-                10{ . $script_path\Manage-VMTypes\Start-WindowsServerVMs.ps1 }
-                11{ . $script_path\Manage-VMTypes\Shutdown-WindowsServerVMs.ps1 }
-                12{ . $script_path\Manage-VMTypes\Restart-WindowsServerVMs.ps1 }
+                4{ . $script_path\Manage-VMTypes\Create-VMTypes.ps1 -VM_Type Kali}
+                5{ . $script_path\Manage-VMTypes\Start-MetasploitableVMs.ps1 }
+                6{ . $script_path\Manage-VMTypes\Shutdown-MetasploitableVMs.ps1 }
+                7{ . $script_path\Manage-VMTypes\Restart-MetasploitableVMs.ps1 }
+                8{ . $script_path\Manage-VMTypes\Create-VMTypes.ps1 -VM_Type Metasploitable}
+                9{ . $script_path\Manage-VMTypes\Start-WindowsVMs.ps1 }
+                10{ . $script_path\Manage-VMTypes\Shutdown-WindowsVMs.ps1 }
+                11{ . $script_path\Manage-VMTypes\Restart-WindowsVMs.ps1 }
+                12{ . $script_path\Manage-VMTypes\Create-VMTypes.ps1 -VM_Type Windows}
+                13{ . $script_path\Manage-VMTypes\Start-WindowsServerVMs.ps1 }
+                14{ . $script_path\Manage-VMTypes\Shutdown-WindowsServerVMs.ps1 }
+                15{ . $script_path\Manage-VMTypes\Restart-WindowsServerVMs.ps1 }
 				default { Write-Host "`n`tHauptmenü`n" ; break}
 			}
 		}
