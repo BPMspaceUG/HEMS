@@ -109,7 +109,7 @@ foreach ($i in 0..$participant_number)
                 # Create Windows Server VM Clone only for the trainer --> only if $i = 0
                 if ($i -eq "00")
                     {
-                    $Winserv_VMName = "winserver-lab"
+                    $Winserv_VMName = "winserver-lab$i"
                     $Winserv_MAC = "$mac_scope$winserv_vm_type$Hex_i"
                     $winserv_participant_vhd_path = "$participant_path\$Winserv_VMName\$Winserv_VMName.VHDX"          
                     . $module_path\Create-DifferencingVM_WinServer.ps1 -TemplatePath "$winserv_template_path" -VHDX_Path "$winserv_participant_vhd_path" -VM_Name $WinServ_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Winserv_MAC 
