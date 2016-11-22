@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #stored as /etc/init.d/vm-autoconfiguration.sh
-#last modified: 17.10.16 - 16:40
+#last modified: 22.11.2016 - 17:09
  
-# gets the last two characters of the mac-address and stores it in the variable "tail_current_mac"
+#. gets the last two characters of the mac-address and stores it in the variable "tail_current_mac".
 tail_current_mac="`ip link show dev eth0 | grep -oE 'link/ether ([a-f0-9]{2}:){5}[a-f0-9]{2}' | cut -d' ' -f2 |tail -c3 `" 
 # transforms the HEX number from variable $tail_current_mac in a decimal number .
 tail_current_mac_dec=$((0x${tail_current_mac}))
@@ -34,24 +34,7 @@ then
 	echo "$current_ipaddress" >> /etc/init.d/vm-autoconfiguration_log.txt
 	
 else 
-	#sed -i '/inet dhcp/d' /etc/network/interfaces #deletes the line where eth0 is set to dhcp
-	#sed -i '/iface eth0 inet static/d' /etc/network/interfaces
-	#sed -i '/address/d' /etc/network/interfaces #deletes old entries for address, network and gateway 
-	#sed -i '/broadcast/d' /etc/network/interfaces
-	#sed -i '/netmask/d' /etc/network/interfaces
-	#sed -i '/gateway/d' /etc/network/interfaces
-	# sets the new static  ip configuration for eth0
-	#echo "iface eth0 inet static" >> /etc/network/interfaces
-	#echo "address $static_ip">> /etc/network/interfaces
-	#echo "broadcast $broadcast" >> /etc/network/interfaces
-	#echo "netmask $netmask" >> /etc/network/interfaces
-	#echo "gateway $gateway" >> /etc/network/interfaces
-
-	#This method writes the IP Parameters into a blank copy of the interfaces file and overwrites the old one.
-	# Therefore "sed" isn't necessary anymore
-	# Interfaces_empty must exist
-
-	#wget --output-document=/etc/network/interfaces_empty  https://raw.githubusercontent.com/BPMspaceUG/HEMS/master/_Kali_Template/interfaces_empty
+	
 	sudo cp /etc/network/interfaces_default /etc/network/interfaces_default_copy
 	echo "address $static_ip">> /etc/network/interfaces_default_copy
 	echo "broadcast $broadcast" >> /etc/network/interfaces_default_copy
@@ -101,8 +84,12 @@ else
 fi
 
 #Re-Register Nessus Installation
-#sudo /etc/init.d/nessusd stop
-#sudo  /opt/nessus/sbin/nessuscli fetch --register-offline /opt/nessus/etc/nessus/nessus.license
-#sudo /etc/init.d/nessusd start
+sudo /etc/init.d/nessusd start
+sudo /etc/init.d/nessusd stop
+sleep 5
+yes | sudo /opt/nessus/sbin/nessuscli fix --reset
+sudo /opt/nessus/sbin/nessuscli fetch --register-offline /opt/nessus/etc/nessus/nessus_licenses/nessus$dec_two_digit.license
+sudo /etc/init.d/nessusd start
+sleep 5
 
 
