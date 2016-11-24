@@ -12,7 +12,7 @@ function LoadMenuSystem(){
 	while ( $xMenu1 -lt 1 -or $xMenu1 -gt 8 ){
 		#CLS
 		#Hauptmenü
-		Write-Host "`n`t Hacking Labor Startmenü`n" 
+		Write-Host "`n`t Hacking Lab Startmenü`n" 
 		Write-Host "`t`tTreffen Sie eine Auswahl: `n" 
 		Write-Host "`t`t`t1. Labor verwalten" 
 		Write-Host "`t`t`t2. Umgebung einzelner Teilnehmer verwalten "
