@@ -11,9 +11,9 @@ $VM_StaticMac
 )      
 
 #Config Variables
-$MemMaxBytes = 1024MB
-$MemMinBytes = 256MB
-$MemStartupBytes = 1024MB
+$MemMaxBytes = 512MB
+$MemMinBytes = 128MB
+$MemStartupBytes = 256MB
 $VM_Cores = 2
 
         Write-Output $TemplatePath, $VHDX_Path, $VM_Name, $VM_Path,$VM_Switch, $MemMaxBytes, $MemMinBytes, $MemStartupBytes, $VM_Cores, $VM_StaticMac

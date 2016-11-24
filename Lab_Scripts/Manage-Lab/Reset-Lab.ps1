@@ -8,15 +8,10 @@ $script_path = "C:\HEMS-Repository\Lab_Scripts" # auf MITSM_HYPERV_04
 
 # Get Number of VMs
 
-$VMs = Get-VM
-$VM_count = $VMs.count -5 # The templates are in the "get-vm" list, but they should not be deleted
+$VMs = Get-VM "*-lab*"
+$VM_count = $VMs.count
+# get number of participants
 $participant_number = ($VM_count / 3) - 1 # because the trainer is no participant
 
-# Lab löschen
+# Delete Lab and create it again
 . $script_path\Manage-Lab\Delete-Lab.ps1 -participant_number $participant_number
-
-# Lab neuaufsetzen
-#. $script_path\Manage-Lab\Create-Lab.ps1 -participant_number $participant_number
-
-#Zurück zum Startmenü
-. $script_path\Start.ps1

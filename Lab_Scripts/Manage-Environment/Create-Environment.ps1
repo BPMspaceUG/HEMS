@@ -58,11 +58,11 @@ Write-Output "------------------------------------------------------------" `n
 Start-Sleep -Seconds 3
 
 
-    $vm = Get-VM -name "*.lab$i.net" -ErrorAction SilentlyContinue #Checks, if some VMs exist already
+    $vm = Get-VM "*lab$i" -ErrorAction SilentlyContinue #Checks, if some VMs exist already
     
     if ($vm){
      Write-Output "The following VMs exist already:" 
-     Write-Output "kali.lab$i.net" "linux.lab$i.net" "windows.lab$i.net"
+     Write-Output $vm
      Write-Output "$($vm.State)" `n 
      # TODO: Question, if these VMs schould rest or schould be deleted
      Write-Output "Those VMs will stay for the moment." `n
@@ -76,7 +76,7 @@ Start-Sleep -Seconds 3
                 $Hex_i = "{0:X2}" -f $Hex_i  
           
                 #Create Kali VM Clones
-                $Kali_VMName="kali.lab$i.net"
+                $Kali_VMName="kali-lab$i"
                 $Kali_MAC = "$mac_scope$kali_vm_type$Hex_i"
                 $kali_participant_vhd_path = "$participant_path\$Kali_VMName\$Kali_VMName.VHDX"       
 
@@ -86,7 +86,7 @@ Start-Sleep -Seconds 3
                 Write-Output "MAC-Address: $Kali_MAC"
 
                 #Create Metasploitable VM Clones
-                $MS_VMName="linux.lab$i.net"
+                $MS_VMName="linux-lab$i"
                 $MS_MAC = "$mac_scope$ms_vm_type$Hex_i"
                 $ms_participant_vhd_path = "$participant_path\$MS_VMName\$MS_VMName.VHDX"       
                 
@@ -96,7 +96,7 @@ Start-Sleep -Seconds 3
                 Write-Output "MAC-Address: $MS_MAC"
 
                 #Create Windows VM Clones
-                $Win_VMName="windows.lab$i.net"
+                $Win_VMName="windows-lab$i"
                 $Win_MAC = "$mac_scope$win_vm_type$Hex_i"
                 $win_participant_vhd_path = "$participant_path\$Win_VMName\$Win_VMName.VHDX"       
 
@@ -105,7 +105,7 @@ Start-Sleep -Seconds 3
                 # Create Windows Server VM Clone only for the trainer --> only if $i = 0
                 if ($i -eq "00")
                     {
-                    $Winserv_VMName = "winserver.lab$i.net"
+                    $Winserv_VMName = "winserver-lab$i"
                     $Winserv_MAC = "$mac_scope$winserv_vm_type$Hex_i"
                     $winserv_participant_vhd_path = "$participant_path\$Winserv_VMName\$Winserv_VMName.VHDX"          
                     . $module_path\Create-DifferencingVM_WinServer.ps1 -TemplatePath "$winserv_template_path" -VHDX_Path "$winserv_participant_vhd_path" -VM_Name $WinServ_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Winserv_MAC 
@@ -113,7 +113,7 @@ Start-Sleep -Seconds 3
         }
 
 Write-Output "------------------------------------------------------------" `n
-Write-Output "$VM_count VMs have been created"
+Write-Output "3 VMS for Participant $participant_number have been created."
 Start-Sleep -Seconds 5
 
 #Back to Startmenu

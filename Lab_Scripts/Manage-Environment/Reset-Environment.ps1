@@ -14,9 +14,3 @@ $participant_number = "{0:00}" -f $participant_number
 
 # Lab löschen
 . $script_path\Manage-Environment\Delete-Environment.ps1 -participant_number $participant_number
-
-# Lab neuaufsetzen
-. $script_path\Manage-Lab\Create-Environment.ps1 -participant_number $participant_number
-
-#Zurück zum Startmenü
-. $script_path\Start.ps1

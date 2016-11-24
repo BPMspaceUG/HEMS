@@ -2,10 +2,12 @@
 
 $script_path = "C:\Hems-Repository\Lab_Scripts"
 
-Start-VM kali.lab*
-Start-VM linux.lab*
-Start-VM windows.lab*
-Start-VM winserver.lab*
+
+$VMs = Get-VM "*-lab*"
+$VM_count = $VMs.count
+
+Write-Output "$VM_count VMs are going to start now."
+Start-VM "*-lab*"
 
 #Zurück zum Startmenü
 . $script_path\Start.ps1
