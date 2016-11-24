@@ -16,7 +16,7 @@ $VM_count = $VMs.count
 Write-Output "Es werden nun $VM_count VMs gelöscht."
 
 Stop-VM "*-lab*" -TurnOff -force -ErrorAction SilentlyContinue
-Remove-VM "*-lab*" -TurnOff -force -ErrorAction SilentlyContinue
+Remove-VM "*-lab*" -force -ErrorAction SilentlyContinue
 
 Write-Output "Participant directories will be deleted"
 Get-ChildItem -Path "D:\Lab\" -Recurse | Where-Object {$_.Name -like "Teilnehmer_*"} | Remove-Item -Recurse
