@@ -92,10 +92,6 @@ sudo /opt/nessus/sbin/nessuscli fetch --register-offline /opt/nessus/etc/nessus/
 sudo /etc/init.d/nessusd start
 sleep 5
 
-#Restart XRDP to prevent Connection Errors
-sudo service xrdp stop
-sleep 5
-sudo service xrdp start
 
 #EOF
 
