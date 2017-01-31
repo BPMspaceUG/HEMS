@@ -92,6 +92,10 @@ sudo /opt/nessus/sbin/nessuscli fetch --register-offline /opt/nessus/etc/nessus/
 sudo /etc/init.d/nessusd start
 sleep 5
 
+#Configure XRDP and Tightvnc
+sudo service xrdp stop
+vncserver :1 -geometry 1920x1080 -depth 16 -localhost
+sudo service xrdp start
 
 #EOF
 
