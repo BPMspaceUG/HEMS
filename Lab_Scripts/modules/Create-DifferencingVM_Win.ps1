@@ -23,7 +23,7 @@ $VM_Cores = 2
         # Create new differencing VHDX 
         #New-VHD -ParentPath $TemplatePath -Differencing -Path $VHDX_Path
 
-        Write-Output "Template VHDX File is now copiing"
+        
         #Copy Template VHDX File
         Copy-Item -Path $TemplatePath -Destination $VHDX_Path -Force
         
