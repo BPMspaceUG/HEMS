@@ -25,6 +25,8 @@ $VM_Cores = 2
         
         #Copy Template VHDX File
         Copy-Item -Path $TemplatePath -Destination $VHDX_Path -Force
+
+        Write-Output "Template VHDX File is now copiing"
          
         # Create new VM and assign the new VHDX and a Virtual Switch
         New-VM -VHDPath "$VHDX_Path" -Name $VM_Name -Path "$VM_Path" -SwitchName $VM_Switch
