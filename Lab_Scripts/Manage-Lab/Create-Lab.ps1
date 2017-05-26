@@ -41,7 +41,7 @@ $winserv_template_path = "$template_location\_Windows_Server_Template\_Windows_S
 get-vm -name "*_Template" | stop-vm -force -ErrorAction SilentlyContinue
 
 # Sets the rights to read-only
-. $script_path\Manage-VM\Enable-ReadMode.ps1
+#. $script_path\Manage-VM\Enable-ReadMode.ps1
 
 #Question for number of participants
 
