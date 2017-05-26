@@ -24,7 +24,7 @@ $VM_Cores = 1
         #New-VHD -ParentPath $TemplatePath -Differencing -Path $VHDX_Path
 
         #Copy Template VHDX File
-        Copy-Item -Path $TemplatePath -Destination $VHDX_Path
+        Copy-Item -Path $TemplatePath -Destination $VHDX_Path -Force
         
          
         # Create new VM and assign the new VHDX and a Virtual Switch
