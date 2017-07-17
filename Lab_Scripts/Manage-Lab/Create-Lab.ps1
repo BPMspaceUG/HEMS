@@ -82,9 +82,11 @@ foreach ($i in 0..$participant_number)
                 #Create Kali VM Clones
                 $Kali_VMName="kali-lab$i"
                 $Kali_MAC = "$mac_scope$kali_vm_type$Hex_i"
-                $kali_participant_vhd_path = "$participant_path\$Kali_VMName\$Kali_VMName.VHDX"       
+                $kali_participant_directory = "$participant_path\$Kali_VMName"
+                $kali_participant_vhd_path = "$participant_path\$Kali_VMName\$Kali_VMName.VHDX"
+                       
 
-                . $module_path\Create-DifferencingVM_Kali.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
+                . $module_path\Create-DifferencingVM_Kali.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -DirectoryPath "$kali_participant_directory" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
 
                 Write-Output "$Kali_VMName created"
                 Write-Output "MAC-Address: $Kali_MAC"
@@ -92,9 +94,10 @@ foreach ($i in 0..$participant_number)
                 #Create Metasploitable VM Clones
                 $MS_VMName="linux-lab$i"
                 $MS_MAC = "$mac_scope$ms_vm_type$Hex_i"
+                $ms_participant_directory = "$participant_path\$MS_VMName"
                 $ms_participant_vhd_path = "$participant_path\$MS_VMName\$MS_VMName.VHDX"       
                 
-                . $module_path\Create-DifferencingVM_MS.ps1 -TemplatePath "$ms_template_path" -VHDX_Path "$ms_participant_vhd_path" -VM_Name $MS_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $MS_MAC 
+                . $module_path\Create-DifferencingVM_MS.ps1 -TemplatePath "$ms_template_path" -VHDX_Path "$ms_participant_vhd_path" -DirectoryPath "$ms_participant_directory" -VM_Name $MS_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $MS_MAC 
 
                 Write-Output "$MS_VMName created"
                 Write-Output "MAC-Address: $MS_MAC"
@@ -102,17 +105,19 @@ foreach ($i in 0..$participant_number)
                 #Create Windows VM Clones
                 $Win_VMName="windows-lab$i"
                 $Win_MAC = "$mac_scope$win_vm_type$Hex_i"
+                $win_participant_directory = "$participant_path\$Win_VMName"
                 $win_participant_vhd_path = "$participant_path\$Win_VMName\$Win_VMName.VHDX"       
 
-                . $module_path\Create-DifferencingVM_Win.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_participant_vhd_path" -VM_Name $Win_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
+                . $module_path\Create-DifferencingVM_Win.ps1 -TemplatePath "$win_template_path" -VHDX_Path "$win_participant_vhd_path" -DirectoryPath "$win_participant_directory" -VM_Name $Win_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Win_MAC 
                 
                 # Create Windows Server VM Clone only for the trainer --> only if $i = 0
                 if ($i -eq "00")
                     {
                     $Winserv_VMName = "winserver-lab$i"
                     $Winserv_MAC = "$mac_scope$winserv_vm_type$Hex_i"
+                    $winserv_participant_directory = "$participant_path\$winserv_VMName"
                     $winserv_participant_vhd_path = "$participant_path\$Winserv_VMName\$Winserv_VMName.VHDX"          
-                    . $module_path\Create-DifferencingVM_WinServer.ps1 -TemplatePath "$winserv_template_path" -VHDX_Path "$winserv_participant_vhd_path" -VM_Name $WinServ_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Winserv_MAC 
+                    . $module_path\Create-DifferencingVM_WinServer.ps1 -TemplatePath "$winserv_template_path" -VHDX_Path "$winserv_participant_vhd_path" -DirectoryPath "$winserv_participant_directory" -VM_Name $WinServ_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Winserv_MAC 
                     }
         }
 

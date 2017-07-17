@@ -4,6 +4,7 @@ param
 (
 $TemplatePath,
 $VHDX_Path,
+$DirectoryPath,
 $VM_Name,
 $VM_Path,
 $VM_Switch,
@@ -23,6 +24,9 @@ $VM_Cores = 2
         # Create new differencing VHDX 
         #New-VHD -ParentPath $TemplatePath -Differencing -Path $VHDX_Path
        
+        # Create new participant directory
+        New-Item -Path $DirectoryPath -ItemType directory 
+
         #Copy Template VHDX File
         Copy-Item -Path $TemplatePath -Destination $VHDX_Path -Force
          
