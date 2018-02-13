@@ -1,6 +1,7 @@
 ﻿# HEMS Startmenü
 
 #$script_path = "C:\Users\Christian\OneDrive\Studium\Masterarbeit\mITSM\Skripte\Lab_Scripts"
+Set-Location "C:\Hems-Repository\Lab_Scripts"
 $script_path = "C:\Hems-Repository\Lab_Scripts" # on MITSM_HYPERV_04
 
 $xAppName    = "MenuDemo"
