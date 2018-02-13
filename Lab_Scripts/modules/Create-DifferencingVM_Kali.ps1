@@ -38,7 +38,8 @@ Start-BitsTransfer -Source $TemplatePath -Destination $VHDX_Path -Description "C
 New-VM -VHDPath "$VHDX_Path" -Name $VM_Name -Path "$VM_Path" -SwitchName $VM_Switch
          
 # Configure the new VM
-Set-VM -Name $VM_Name -MemoryStartupBytes $MemStartupBytes -ProcessorCount $VM_Cores
+#Set-VM -Name $VM_Name -MemoryStartupBytes $MemStartupBytes -ProcessorCount $VM_Cores
+Set-VM -Name $VM_Name -MemoryStartupBytes $MemStartupBytes -ProcessorCount $VM_Cores -StaticMemory
 
 # Assigns a new, but static Mac-Address to the Virtual NIC
 Get-VM -Name $VM_Name | Get-VMNetworkAdapter | Set-VMNetworkAdapter -StaticMacAddress $VM_StaticMac -MacAddressSpoofing On
