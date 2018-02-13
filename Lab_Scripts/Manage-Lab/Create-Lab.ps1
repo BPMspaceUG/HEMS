@@ -125,6 +125,8 @@ foreach ($i in 0..$participant_number)
 
 Write-Output "------------------------------------------------------------" `n
 Write-Output "$VM_count VMs have been created"
+Write-Output "VMs are starting now"
+Start-VM -Name *-lab*
 Start-Sleep -Seconds 5
 
 #Back to Startmenu

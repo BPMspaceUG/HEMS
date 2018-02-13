@@ -4,7 +4,7 @@
 Set-Location "C:\Hems-Repository\Lab_Scripts"
 $script_path = "C:\Hems-Repository\Lab_Scripts" # on MITSM_HYPERV_04
 
-$xAppName    = "MenuDemo"
+$xAppName    = "StartMenu"
 [BOOLEAN]$global:xExitSession=$false
 function LoadMenuSystem(){
 	[INT]$xMenu1=0
