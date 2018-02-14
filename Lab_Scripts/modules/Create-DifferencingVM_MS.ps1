@@ -42,7 +42,7 @@ Add-VMNetworkAdapter -VMName "$VM_Name" -IsLegacy $true -SwitchName $VM_Switch -
 Get-VMNetworkAdapter -VMName $VM_Name | Set-VMNetworkAdapter -MacAddressSpoofing On
          
 #Enabling all Integration Services
-Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"
+#Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"
 
 # starts the new VM Clone
 #Start-VM $VM_Name

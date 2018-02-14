@@ -42,7 +42,7 @@ Set-VM -Name $VM_Name -MemoryStartupBytes $MemStartupBytes -ProcessorCount $VM_C
 Get-VM -Name $VM_Name | Get-VMNetworkAdapter | Set-VMNetworkAdapter -StaticMacAddress $VM_StaticMac -MacAddressSpoofing On
 
 #Enabling all Integration Services
-Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"
+#Enable-VMIntegrationService -VMName $VM_Name -Name "Guest Service Interface"
 
 # starts the new VM Clone
 #Start-VM $VM_Name
