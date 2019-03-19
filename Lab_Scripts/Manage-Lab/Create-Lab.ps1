@@ -80,17 +80,19 @@ foreach ($i in 0..$participant_number)
                 $Hex_i = [convert]::ToInt32($i, 10)
                 $Hex_i = "{0:X2}" -f $Hex_i  
           
-                #Create Kali VM Clones
-                #$Kali_VMName="kali-lab$i"
-                #$Kali_MAC = "$mac_scope$kali_vm_type$Hex_i"
-                #$kali_participant_directory = "$participant_path\$Kali_VMName"
-                #$kali_participant_vhd_path = "$participant_path\$Kali_VMName\$Kali_VMName.VHDX"
-                       
+                #Create Kali VM Clones --> only if $i = 0
+                if ($i -eq "00")
+                    {
+                    $Kali_VMName="kali-lab$i"
+                    $Kali_MAC = "$mac_scope$kali_vm_type$Hex_i"
+                    $kali_participant_directory = "$participant_path\$Kali_VMName"
+                    $kali_participant_vhd_path = "$participant_path\$Kali_VMName\$Kali_VMName.VHDX"
+                    . $module_path\Create-DifferencingVM_Kali.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -DirectoryPath "$kali_participant_directory" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
 
-                #. $module_path\Create-DifferencingVM_Kali.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -DirectoryPath "$kali_participant_directory" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
-
-                #Write-Output "$Kali_VMName created"
-                #Write-Output "MAC-Address: $Kali_MAC"
+                    Write-Output "$Kali_VMName created"
+                    Write-Output "MAC-Address: $Kali_MAC"
+                }
+               
 
                 #Create Metasploitable VM Clones
                 $MS_VMName="linux-lab$i"
