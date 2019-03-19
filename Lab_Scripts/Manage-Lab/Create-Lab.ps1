@@ -49,7 +49,8 @@ if (!$participant_number)
 {
     $participant_number = [convert]::ToInt32((Read-Host "How many participants has this course?"), 10)
 }
-$VM_count = (($participant_number + 1) * 3) + 1
+#$VM_count = (($participant_number + 1) * 3) + 1
+$VM_count = (($participant_number + 1) * 2) + 1
 $participant_number = "{0:00}" -f $participant_number
 
 Write-Output `n "$participant_number attendees will participate." `n
@@ -80,16 +81,16 @@ foreach ($i in 0..$participant_number)
                 $Hex_i = "{0:X2}" -f $Hex_i  
           
                 #Create Kali VM Clones
-                $Kali_VMName="kali-lab$i"
-                $Kali_MAC = "$mac_scope$kali_vm_type$Hex_i"
-                $kali_participant_directory = "$participant_path\$Kali_VMName"
-                $kali_participant_vhd_path = "$participant_path\$Kali_VMName\$Kali_VMName.VHDX"
+                #$Kali_VMName="kali-lab$i"
+                #$Kali_MAC = "$mac_scope$kali_vm_type$Hex_i"
+                #$kali_participant_directory = "$participant_path\$Kali_VMName"
+                #$kali_participant_vhd_path = "$participant_path\$Kali_VMName\$Kali_VMName.VHDX"
                        
 
-                . $module_path\Create-DifferencingVM_Kali.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -DirectoryPath "$kali_participant_directory" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
+                #. $module_path\Create-DifferencingVM_Kali.ps1 -TemplatePath "$kali_template_path" -VHDX_Path "$kali_participant_vhd_path" -DirectoryPath "$kali_participant_directory" -VM_Name $Kali_VMName -VM_Path $participant_path -VM_Switch $vSwitch -VM_StaticMac $Kali_MAC 
 
-                Write-Output "$Kali_VMName created"
-                Write-Output "MAC-Address: $Kali_MAC"
+                #Write-Output "$Kali_VMName created"
+                #Write-Output "MAC-Address: $Kali_MAC"
 
                 #Create Metasploitable VM Clones
                 $MS_VMName="linux-lab$i"
